@@ -148,3 +148,9 @@ a {
 .text-mono {
   font-family: var(--cd-font-mono);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  video {
+    display: none;
+  }
+}

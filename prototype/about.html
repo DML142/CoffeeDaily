@@ -49,13 +49,24 @@
     </header>
 
     <main>
-      <section class="bg-[var(--cd-paper-warm)] px-4 py-24 sm:px-6 lg:px-10">
-        <div class="mx-auto max-w-[1440px]">
-          <p class="text-label mb-6 text-[var(--cd-ink-mute)]">[ About ]</p>
-          <h1 class="text-display-xl mb-6 max-w-4xl text-[var(--cd-ink)]">
+      <section
+        class="relative flex min-h-screen items-end overflow-hidden bg-[var(--cd-ink)] px-4 py-24 sm:px-6 lg:px-10"
+      >
+        <video
+          class="absolute inset-0 h-full w-full object-cover"
+          src="assets/video/making-coffee.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
+        <div class="absolute inset-0 bg-[var(--cd-ink)]/60"></div>
+        <div class="relative mx-auto max-w-[1440px]">
+          <p class="text-label mb-6 text-[var(--cd-cream)]/70">[ About ]</p>
+          <h1 class="text-display-xl mb-6 max-w-4xl text-[var(--cd-cream)]">
             Built around the roast, not the brand
           </h1>
-          <p class="text-body-l max-w-2xl text-[var(--cd-ink-mute)]">
+          <p class="text-body-l max-w-2xl text-[var(--cd-cream)]/80">
             Coffee Daily started as one counter roasting small batches for
             whoever walked in. Six locations later, the counter still runs the
             same way.
