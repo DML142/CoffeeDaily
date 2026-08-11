@@ -49,6 +49,25 @@
         "globals": "17.9.0",
       },
     },
+    "packages/mocks": {
+      "name": "@coffee-daily/mocks",
+      "version": "0.0.0",
+      "dependencies": {
+        "@coffee-daily/types": "workspace:*",
+      },
+      "devDependencies": {
+        "@coffee-daily/config": "workspace:*",
+        "typescript": "5.9.3",
+      },
+    },
+    "packages/types": {
+      "name": "@coffee-daily/types",
+      "version": "0.0.0",
+      "devDependencies": {
+        "@coffee-daily/config": "workspace:*",
+        "typescript": "5.9.3",
+      },
+    },
     "packages/ui": {
       "name": "@coffee-daily/ui",
       "version": "0.0.0",
@@ -73,6 +92,18 @@
       "peerDependencies": {
         "react": "19.2.8",
         "react-dom": "19.2.8",
+      },
+    },
+    "packages/utils": {
+      "name": "@coffee-daily/utils",
+      "version": "0.0.0",
+      "dependencies": {
+        "@coffee-daily/types": "workspace:*",
+      },
+      "devDependencies": {
+        "@coffee-daily/config": "workspace:*",
+        "typescript": "5.9.3",
+        "vitest": "4.1.10",
       },
     },
   },
@@ -123,7 +154,13 @@
 
     "@coffee-daily/config": ["@coffee-daily/config@workspace:packages/config"],
 
+    "@coffee-daily/mocks": ["@coffee-daily/mocks@workspace:packages/mocks"],
+
+    "@coffee-daily/types": ["@coffee-daily/types@workspace:packages/types"],
+
     "@coffee-daily/ui": ["@coffee-daily/ui@workspace:packages/ui"],
+
+    "@coffee-daily/utils": ["@coffee-daily/utils@workspace:packages/utils"],
 
     "@coffee-daily/web": ["@coffee-daily/web@workspace:apps/web"],
 

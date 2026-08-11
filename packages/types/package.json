@@ -1,0 +1,16 @@
+{
+  "name": "@coffee-daily/types",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@coffee-daily/config": "workspace:*",
+    "typescript": "5.9.3"
+  }
+}
