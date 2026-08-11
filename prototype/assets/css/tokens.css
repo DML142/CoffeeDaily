@@ -73,8 +73,13 @@
   box-sizing: border-box;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
+  overflow-x: hidden;
   font-family: var(--cd-font-body);
   color: var(--cd-ink);
   background: var(--cd-paper);
