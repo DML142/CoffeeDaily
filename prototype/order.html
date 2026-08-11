@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Order — Coffee Daily</title>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <header
+      id="top"
+      class="sticky top-0 z-50 border-b border-[var(--cd-line)] bg-[var(--cd-paper-warm)]"
+    >
+      <div
+        class="mx-auto grid h-20 max-w-[1440px] grid-cols-3 items-center px-4 sm:px-6 lg:px-10"
+      >
+        <a href="index.html" class="text-display-m justify-self-start"
+          >Coffee Daily</a
+        >
+
+        <nav class="hidden items-center gap-8 justify-self-center md:flex">
+          <a href="menu.html" class="text-body hover:text-[var(--cd-orange)]"
+            >Menu</a
+          >
+          <a
+            href="locations.html"
+            class="text-body hover:text-[var(--cd-orange)]"
+            >Locations</a
+          >
+          <a href="about.html" class="text-body hover:text-[var(--cd-orange)]"
+            >About</a
+          >
+        </nav>
+
+        <div class="flex items-center justify-self-end gap-3">
+          <a
+            href="locations.html"
+            class="hidden border border-[var(--cd-ink)] px-4 py-2 text-body-s sm:inline-block"
+            >Choose location</a
+          >
+          <a
+            href="cart.html"
+            class="bg-[var(--cd-orange)] px-4 py-2 text-body-s text-[var(--cd-cream)]"
+            >Cart</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="bg-[var(--cd-paper-warm)] px-4 py-16 sm:px-6 lg:px-10">
+        <div class="mx-auto max-w-[1440px]">
+          <p class="text-label mb-6 text-[var(--cd-ink-mute)]">[ Order ]</p>
+          <h1 class="text-display-xl mb-6 max-w-2xl text-[var(--cd-ink)]">
+            Track your order
+          </h1>
+          <p class="text-body-l max-w-2xl text-[var(--cd-ink-mute)]">
+            Enter the receipt number and the phone number used to place the
+            order.
+          </p>
+        </div>
+      </section>
+
+      <section class="bg-[var(--cd-paper)] px-4 py-8 sm:px-6 lg:px-10">
+        <form
+          class="mx-auto flex max-w-[720px] flex-col gap-4 sm:flex-row"
+          action="#"
+          method="get"
+        >
+          <label class="flex-1">
+            <span class="sr-only">Receipt number</span>
+            <input
+              type="text"
+              required
+              placeholder="Receipt number"
+              class="text-body-s w-full border border-[var(--cd-line)] bg-[var(--cd-paper-warm)] px-4 py-3"
+            />
+          </label>
+          <label class="flex-1">
+            <span class="sr-only">Phone number</span>
+            <input
+              type="tel"
+              required
+              placeholder="Phone number"
+              class="text-body-s w-full border border-[var(--cd-line)] bg-[var(--cd-paper-warm)] px-4 py-3"
+            />
+          </label>
+          <button
+            type="submit"
+            class="text-body-s shrink-0 bg-[var(--cd-orange)] px-6 py-3 text-[var(--cd-cream)]"
+          >
+            Look up
+          </button>
+        </form>
+      </section>
+
+      <section class="bg-[var(--cd-paper)] px-4 pb-16 sm:px-6 lg:px-10">
+        <div class="mx-auto max-w-[720px] bg-[var(--cd-paper-warm)] p-6 sm:p-8">
+          <div class="mb-8 flex items-start justify-between">
+            <div>
+              <p class="text-label mb-2 text-[var(--cd-ink-mute)]">
+                Receipt CD-10482
+              </p>
+              <p class="text-display-m">Fulton Market</p>
+            </div>
+            <span
+              class="text-label rounded-full bg-[var(--cd-orange)]/10 px-3 py-1 text-[var(--cd-orange)]"
+              >Preparing</span
+            >
+          </div>
+
+          <div class="mb-8">
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Status</p>
+            <ol class="flex flex-wrap items-center gap-2">
+              <li class="text-body-s text-[var(--cd-ink)]">Paid</li>
+              <li class="text-body-s text-[var(--cd-line)]">→</li>
+              <li class="text-body-s text-[var(--cd-ink)]">Accepted</li>
+              <li class="text-body-s text-[var(--cd-line)]">→</li>
+              <li class="text-body-s font-bold text-[var(--cd-orange)]">
+                Preparing
+              </li>
+              <li class="text-body-s text-[var(--cd-line)]">→</li>
+              <li class="text-body-s text-[var(--cd-ink-mute)]">Ready</li>
+              <li class="text-body-s text-[var(--cd-line)]">→</li>
+              <li class="text-body-s text-[var(--cd-ink-mute)]">Completed</li>
+            </ol>
+          </div>
+
+          <div class="mb-8 flex flex-col divide-y divide-[var(--cd-line)]">
+            <div class="flex items-center gap-4 py-3">
+              <div class="h-16 w-16 shrink-0 bg-[var(--cd-line)]"></div>
+              <div class="flex-1">
+                <p class="text-body mb-1">Iced Cold Brew</p>
+                <p class="text-body-s text-[var(--cd-ink-mute)]">
+                  Glass, M, ×1
+                </p>
+              </div>
+              <p class="text-mono text-body-s">$4.50</p>
+            </div>
+            <div class="flex items-center gap-4 py-3">
+              <div class="h-16 w-16 shrink-0 bg-[var(--cd-line)]"></div>
+              <div class="flex-1">
+                <p class="text-body mb-1">Oat Milk Latte</p>
+                <p class="text-body-s text-[var(--cd-ink-mute)]">
+                  Ceramic mug, L, ×2
+                </p>
+              </div>
+              <p class="text-mono text-body-s">$10.50</p>
+            </div>
+          </div>
+
+          <div
+            class="mb-8 flex items-center justify-between border-t border-[var(--cd-line)] pt-4"
+          >
+            <p class="text-body">Total</p>
+            <p class="text-mono text-display-m">$15.00</p>
+          </div>
+
+          <a
+            href="#"
+            class="text-body-s inline-block border border-[var(--cd-ink)] px-6 py-3"
+            >Download receipt PDF</a
+          >
+        </div>
+      </section>
+    </main>
+
+    <footer
+      class="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col justify-between bg-[var(--cd-ink)] text-[var(--cd-cream)]"
+    >
+      <div
+        class="overflow-hidden border-b border-white/10 py-6 text-display-l whitespace-nowrap"
+      >
+        Beyond your expectations / Beyond your expectations / Beyond your
+        expectations /
+      </div>
+
+      <div
+        class="mx-auto flex w-full max-w-[1440px] items-start justify-between gap-8 px-4 py-16 sm:px-6 lg:px-10"
+      >
+        <div class="grid flex-1 grid-cols-2 gap-8 md:grid-cols-4">
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Visit us</p>
+            <p class="text-body-s">1200 W Fulton St</p>
+            <p class="text-body-s">Chicago, IL 60607</p>
+          </div>
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Sitemap</p>
+            <ul class="flex flex-col gap-2 text-body-s">
+              <li><a href="menu.html">Menu</a></li>
+              <li><a href="locations.html">Locations</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Products</p>
+            <ul class="flex flex-col gap-2 text-body-s">
+              <li>Coffee</li>
+              <li>Food</li>
+              <li>Beans</li>
+              <li>Merch</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Socials</p>
+            <ul class="flex flex-col gap-2 text-body-s">
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">TikTok</a></li>
+              <li><a href="#">X</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <a
+          href="#top"
+          aria-label="Back to top"
+          class="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/30 sm:flex"
+          >&uarr;</a
+        >
+      </div>
+
+      <div
+        class="mx-auto flex w-full max-w-[1440px] flex-wrap items-center justify-between gap-4 px-4 py-6 text-body-s text-[var(--cd-ink-mute)] sm:px-6 lg:px-10"
+      >
+        <p>&copy; 2026 Coffee Daily</p>
+        <div class="flex gap-6">
+          <a href="legal/privacy.html">Privacy</a>
+          <a href="legal/terms.html">Terms</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
