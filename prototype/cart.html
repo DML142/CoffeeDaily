@@ -71,72 +71,82 @@
             </div>
 
             <div class="flex flex-col divide-y divide-[var(--cd-line)]">
-              <div class="flex items-center gap-4 py-4">
-                <div class="h-20 w-20 shrink-0 bg-[var(--cd-line)]"></div>
-                <div class="flex-1">
-                  <p class="text-body mb-1">Iced Cold Brew</p>
-                  <p class="text-body-s text-[var(--cd-ink-mute)]">Glass, M</p>
+              <div class="flex flex-wrap items-center gap-4 py-4">
+                <div class="flex min-w-[200px] flex-1 items-center gap-4">
+                  <div class="h-20 w-20 shrink-0 bg-[var(--cd-line)]"></div>
+                  <div class="flex-1">
+                    <p class="text-body mb-1">Iced Cold Brew</p>
+                    <p class="text-body-s text-[var(--cd-ink-mute)]">
+                      Glass, M
+                    </p>
+                  </div>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
+                  <div class="flex items-center gap-3">
+                    <button
+                      type="button"
+                      aria-label="Decrease quantity"
+                      class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    >
+                      −
+                    </button>
+                    <span class="text-body-s w-4 text-center">1</span>
+                    <button
+                      type="button"
+                      aria-label="Increase quantity"
+                      class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <p class="text-mono w-16 text-right text-body-s">$4.50</p>
                   <button
                     type="button"
-                    aria-label="Decrease quantity"
-                    class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    aria-label="Remove item"
+                    class="text-body-s text-[var(--cd-ink-mute)] hover:text-[var(--cd-danger)]"
                   >
-                    −
-                  </button>
-                  <span class="text-body-s w-4 text-center">1</span>
-                  <button
-                    type="button"
-                    aria-label="Increase quantity"
-                    class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
-                  >
-                    +
+                    ✕
                   </button>
                 </div>
-                <p class="text-mono w-16 text-right text-body-s">$4.50</p>
-                <button
-                  type="button"
-                  aria-label="Remove item"
-                  class="text-body-s text-[var(--cd-ink-mute)] hover:text-[var(--cd-danger)]"
-                >
-                  ✕
-                </button>
               </div>
 
-              <div class="flex items-center gap-4 py-4">
-                <div class="h-20 w-20 shrink-0 bg-[var(--cd-line)]"></div>
-                <div class="flex-1">
-                  <p class="text-body mb-1">Oat Milk Latte</p>
-                  <p class="text-body-s text-[var(--cd-ink-mute)]">
-                    Ceramic mug, L
-                  </p>
+              <div class="flex flex-wrap items-center gap-4 py-4">
+                <div class="flex min-w-[200px] flex-1 items-center gap-4">
+                  <div class="h-20 w-20 shrink-0 bg-[var(--cd-line)]"></div>
+                  <div class="flex-1">
+                    <p class="text-body mb-1">Oat Milk Latte</p>
+                    <p class="text-body-s text-[var(--cd-ink-mute)]">
+                      Ceramic mug, L
+                    </p>
+                  </div>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
+                  <div class="flex items-center gap-3">
+                    <button
+                      type="button"
+                      aria-label="Decrease quantity"
+                      class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    >
+                      −
+                    </button>
+                    <span class="text-body-s w-4 text-center">2</span>
+                    <button
+                      type="button"
+                      aria-label="Increase quantity"
+                      class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <p class="text-mono w-16 text-right text-body-s">$10.50</p>
                   <button
                     type="button"
-                    aria-label="Decrease quantity"
-                    class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    aria-label="Remove item"
+                    class="text-body-s text-[var(--cd-ink-mute)] hover:text-[var(--cd-danger)]"
                   >
-                    −
-                  </button>
-                  <span class="text-body-s w-4 text-center">2</span>
-                  <button
-                    type="button"
-                    aria-label="Increase quantity"
-                    class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
-                  >
-                    +
+                    ✕
                   </button>
                 </div>
-                <p class="text-mono w-16 text-right text-body-s">$10.50</p>
-                <button
-                  type="button"
-                  aria-label="Remove item"
-                  class="text-body-s text-[var(--cd-ink-mute)] hover:text-[var(--cd-danger)]"
-                >
-                  ✕
-                </button>
               </div>
             </div>
 
@@ -164,37 +174,41 @@
             </div>
 
             <div class="flex flex-col divide-y divide-[var(--cd-line)]">
-              <div class="flex items-center gap-4 py-4">
-                <div class="h-20 w-20 shrink-0 bg-[var(--cd-line)]"></div>
-                <div class="flex-1">
-                  <p class="text-body mb-1">Butter Croissant</p>
-                  <p class="text-body-s text-[var(--cd-ink-mute)]">—</p>
+              <div class="flex flex-wrap items-center gap-4 py-4">
+                <div class="flex min-w-[200px] flex-1 items-center gap-4">
+                  <div class="h-20 w-20 shrink-0 bg-[var(--cd-line)]"></div>
+                  <div class="flex-1">
+                    <p class="text-body mb-1">Butter Croissant</p>
+                    <p class="text-body-s text-[var(--cd-ink-mute)]">—</p>
+                  </div>
                 </div>
-                <div class="flex items-center gap-3">
+                <div class="flex items-center gap-4">
+                  <div class="flex items-center gap-3">
+                    <button
+                      type="button"
+                      aria-label="Decrease quantity"
+                      class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    >
+                      −
+                    </button>
+                    <span class="text-body-s w-4 text-center">1</span>
+                    <button
+                      type="button"
+                      aria-label="Increase quantity"
+                      class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    >
+                      +
+                    </button>
+                  </div>
+                  <p class="text-mono w-16 text-right text-body-s">$3.75</p>
                   <button
                     type="button"
-                    aria-label="Decrease quantity"
-                    class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
+                    aria-label="Remove item"
+                    class="text-body-s text-[var(--cd-ink-mute)] hover:text-[var(--cd-danger)]"
                   >
-                    −
-                  </button>
-                  <span class="text-body-s w-4 text-center">1</span>
-                  <button
-                    type="button"
-                    aria-label="Increase quantity"
-                    class="text-body-s h-8 w-8 border border-[var(--cd-line)]"
-                  >
-                    +
+                    ✕
                   </button>
                 </div>
-                <p class="text-mono w-16 text-right text-body-s">$3.75</p>
-                <button
-                  type="button"
-                  aria-label="Remove item"
-                  class="text-body-s text-[var(--cd-ink-mute)] hover:text-[var(--cd-danger)]"
-                >
-                  ✕
-                </button>
               </div>
             </div>
 
