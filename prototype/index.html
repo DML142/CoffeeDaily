@@ -36,19 +36,290 @@
         <div class="flex items-center justify-self-end gap-3">
           <a
             href="locations.html"
-            class="hidden rounded-full border border-[var(--cd-ink)] px-4 py-2 text-body-s sm:inline-block"
+            class="hidden border border-[var(--cd-ink)] px-4 py-2 text-body-s sm:inline-block"
             >Choose location</a
           >
           <a
             href="cart.html"
-            class="rounded-full bg-[var(--cd-orange)] px-4 py-2 text-body-s text-[var(--cd-cream)]"
+            class="bg-[var(--cd-orange)] px-4 py-2 text-body-s text-[var(--cd-cream)]"
             >Cart</a
           >
         </div>
       </div>
     </header>
 
-    <main></main>
+    <main>
+      <section
+        class="relative min-h-[100vh] overflow-visible bg-[var(--cd-paper-warm)]"
+      >
+        <div
+          class="pointer-events-none absolute left-1/2 top-[60%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cd-orange-hot)] opacity-[0.15] blur-[120px]"
+        ></div>
+
+        <div
+          class="grid min-h-[100vh] grid-rows-[1fr] justify-items-center pt-24 sm:pt-32"
+        >
+          <h1
+            class="text-display-xl col-start-1 row-start-1 self-start px-4 text-center text-[var(--cd-ink)]"
+          >
+            Your Daily Coffee
+          </h1>
+
+          <a
+            href="menu.html"
+            class="group col-start-1 row-start-1 z-10 w-[min(75vw,560px)] translate-y-[48px] self-end"
+          >
+            <img
+              src="assets/img/cup.png"
+              alt="Iced coffee in a to-go cup"
+              class="w-full drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+            <span
+              class="text-label absolute left-1/2 top-1/4 -translate-x-1/2 rounded-full bg-[var(--cd-ink)] px-6 py-3 text-[var(--cd-cream)] normal-case tracking-normal"
+              >See it</span
+            >
+          </a>
+        </div>
+      </section>
+
+      <div
+        class="sticky top-16 z-40 border-b border-[var(--cd-line)] bg-[var(--cd-paper)]"
+      >
+        <div
+          class="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-5 sm:px-6 lg:px-10"
+        >
+          <p class="text-body-s text-[var(--cd-ink-mute)]">
+            No location selected
+          </p>
+          <a href="locations.html" class="text-body-s underline"
+            >Choose a location</a
+          >
+        </div>
+      </div>
+
+      <section class="bg-[var(--cd-paper)] px-4 py-16 sm:px-6 lg:px-10">
+        <div class="mx-auto max-w-[1440px]">
+          <p class="text-label mb-8 text-[var(--cd-ink-mute)]">
+            [ Featured Drinks ]
+          </p>
+          <div class="flex snap-x gap-6 overflow-x-auto pb-4">
+            <a
+              href="menu.html"
+              class="w-64 shrink-0 snap-start rounded-lg bg-[var(--cd-paper-warm)] p-4"
+            >
+              <div
+                class="mb-4 aspect-square rounded-lg bg-[var(--cd-line)]"
+              ></div>
+              <p class="text-display-m mb-2 text-[var(--cd-orange)]">
+                Iced Cold Brew
+              </p>
+              <span
+                class="text-label inline-block rounded-full border border-[var(--cd-line)] px-3 py-1"
+                >Coffee</span
+              >
+            </a>
+            <a
+              href="menu.html"
+              class="w-64 shrink-0 snap-start rounded-lg bg-[var(--cd-paper-warm)] p-4"
+            >
+              <div
+                class="mb-4 aspect-square rounded-lg bg-[var(--cd-line)]"
+              ></div>
+              <p class="text-display-m mb-2 text-[var(--cd-orange)]">
+                Oat Milk Latte
+              </p>
+              <span
+                class="text-label inline-block rounded-full border border-[var(--cd-line)] px-3 py-1"
+                >Coffee</span
+              >
+            </a>
+            <a
+              href="menu.html"
+              class="w-64 shrink-0 snap-start rounded-lg bg-[var(--cd-paper-warm)] p-4"
+            >
+              <div
+                class="mb-4 aspect-square rounded-lg bg-[var(--cd-line)]"
+              ></div>
+              <p class="text-display-m mb-2 text-[var(--cd-orange)]">
+                Matcha Latte
+              </p>
+              <span
+                class="text-label inline-block rounded-full border border-[var(--cd-line)] px-3 py-1"
+                >Tea</span
+              >
+            </a>
+            <a
+              href="menu.html"
+              class="w-64 shrink-0 snap-start rounded-lg bg-[var(--cd-paper-warm)] p-4"
+            >
+              <div
+                class="mb-4 aspect-square rounded-lg bg-[var(--cd-line)]"
+              ></div>
+              <p class="text-display-m mb-2 text-[var(--cd-orange)]">
+                Butter Croissant
+              </p>
+              <span
+                class="text-label inline-block rounded-full border border-[var(--cd-line)] px-3 py-1"
+                >Bakery</span
+              >
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[var(--cd-paper)] px-4 pb-16 sm:px-6 lg:px-10">
+        <div
+          class="mx-auto grid max-w-[1440px] grid-cols-2 gap-4 lg:grid-cols-4"
+        >
+          <a
+            href="menu.html?category=coffee"
+            class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-[var(--cd-ink)]"
+          >
+            <span
+              class="text-display-m absolute bottom-4 left-4 text-[var(--cd-cream)]"
+              >Coffee</span
+            >
+            <span
+              class="absolute bottom-4 right-4 text-[var(--cd-cream)] transition-transform group-hover:translate-x-1"
+              >&nearr;</span
+            >
+          </a>
+          <a
+            href="menu.html?category=food"
+            class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-[var(--cd-ink)]"
+          >
+            <span
+              class="text-display-m absolute bottom-4 left-4 text-[var(--cd-cream)]"
+              >Food</span
+            >
+            <span
+              class="absolute bottom-4 right-4 text-[var(--cd-cream)] transition-transform group-hover:translate-x-1"
+              >&nearr;</span
+            >
+          </a>
+          <a
+            href="menu.html?category=beans"
+            class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-[var(--cd-ink)]"
+          >
+            <span
+              class="text-display-m absolute bottom-4 left-4 text-[var(--cd-cream)]"
+              >Beans</span
+            >
+            <span
+              class="absolute bottom-4 right-4 text-[var(--cd-cream)] transition-transform group-hover:translate-x-1"
+              >&nearr;</span
+            >
+          </a>
+          <a
+            href="menu.html?category=merch"
+            class="group relative aspect-[4/5] overflow-hidden rounded-lg bg-[var(--cd-ink)]"
+          >
+            <span
+              class="text-display-m absolute bottom-4 left-4 text-[var(--cd-cream)]"
+              >Merch</span
+            >
+            <span
+              class="absolute bottom-4 right-4 text-[var(--cd-cream)] transition-transform group-hover:translate-x-1"
+              >&nearr;</span
+            >
+          </a>
+        </div>
+      </section>
+
+      <section class="bg-[var(--cd-paper)] px-4 py-16 sm:px-6 lg:px-10">
+        <div
+          class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 md:grid-cols-2"
+        >
+          <div class="aspect-[4/5] rounded-lg bg-[var(--cd-paper-warm)]"></div>
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">
+              [ Our Story ]
+            </p>
+            <p class="text-display-l mb-6">
+              Roasted daily, served without compromise
+            </p>
+            <p class="text-body mb-6 text-[var(--cd-ink-mute)]">
+              Every batch is roasted in small runs and pulled the same week it's
+              poured. No shortcuts, no syrups pretending to be flavor.
+            </p>
+            <a href="about.html" class="text-body-s underline"
+              >Read more about us</a
+            >
+          </div>
+        </div>
+      </section>
+
+      <section class="bg-[var(--cd-paper)] px-4 pb-16 sm:px-6 lg:px-10">
+        <div class="mx-auto max-w-[1440px]">
+          <div class="mb-8 flex items-center justify-between">
+            <p class="text-label text-[var(--cd-ink-mute)]">
+              [ Our Locations ]
+            </p>
+            <a href="locations.html" class="text-body-s underline"
+              >See all locations</a
+            >
+          </div>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <a
+              href="locations.html"
+              class="rounded-lg bg-[var(--cd-paper-warm)] p-6"
+            >
+              <p class="text-display-m mb-2">Fulton Market</p>
+              <p class="text-body-s text-[var(--cd-ink-mute)]">
+                1200 W Fulton St, Chicago, IL
+              </p>
+            </a>
+            <a
+              href="locations.html"
+              class="rounded-lg bg-[var(--cd-paper-warm)] p-6"
+            >
+              <p class="text-display-m mb-2">Wicker Park</p>
+              <p class="text-body-s text-[var(--cd-ink-mute)]">
+                1500 N Milwaukee Ave, Chicago, IL
+              </p>
+            </a>
+            <a
+              href="locations.html"
+              class="rounded-lg bg-[var(--cd-paper-warm)] p-6"
+            >
+              <p class="text-display-m mb-2">Lincoln Park</p>
+              <p class="text-body-s text-[var(--cd-ink-mute)]">
+                800 W Armitage Ave, Chicago, IL
+              </p>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="bg-[var(--cd-ink)] px-4 py-16 text-[var(--cd-cream)] sm:px-6 lg:px-10"
+      >
+        <div
+          class="mx-auto flex max-w-[1440px] flex-col items-start justify-between gap-6 md:flex-row md:items-center"
+        >
+          <div>
+            <p class="text-display-l mb-2">Get the weekly roast</p>
+            <p class="text-body text-[var(--cd-ink-mute)]">
+              New drinks, new locations, no spam.
+            </p>
+          </div>
+          <form class="flex w-full max-w-md gap-3" action="#" method="post">
+            <input
+              type="email"
+              required
+              placeholder="you@example.com"
+              class="text-body-s w-full rounded-full border border-white/20 bg-transparent px-4 py-3 text-[var(--cd-cream)] placeholder:text-[var(--cd-ink-mute)]"
+            />
+            <button
+              type="submit"
+              class="text-body-s shrink-0 rounded-full bg-[var(--cd-orange)] px-6 py-3 text-[var(--cd-cream)]"
+            >
+              Subscribe
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
 
     <footer class="bg-[var(--cd-ink)] text-[var(--cd-cream)]">
       <div
