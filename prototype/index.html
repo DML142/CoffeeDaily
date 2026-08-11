@@ -36,7 +36,7 @@
         <div class="flex items-center justify-self-end gap-3">
           <a
             href="locations.html"
-            class="hidden rounded-lg border border-[var(--cd-ink)] px-4 py-2 text-body-s sm:inline-block"
+            class="hidden rounded-lg bg-[var(--cd-paper)] px-4 py-2 text-body-s sm:inline-block"
             >Choose location</a
           >
           <a
@@ -50,32 +50,36 @@
 
     <main>
       <section
-        class="relative flex min-h-[100vh] flex-col items-center overflow-visible bg-[var(--cd-paper-warm)] pt-24 sm:pt-32"
+        class="relative min-h-[100vh] overflow-visible bg-[var(--cd-paper-warm)]"
       >
         <div
-          class="pointer-events-none absolute left-1/2 top-[55%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cd-orange-hot)] opacity-[0.15] blur-[120px]"
+          class="pointer-events-none absolute left-1/2 top-[60%] h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cd-orange-hot)] opacity-[0.15] blur-[120px]"
         ></div>
 
-        <h1
-          class="text-display-xl relative z-0 px-4 text-center text-[var(--cd-ink)]"
+        <div
+          class="grid min-h-[100vh] grid-rows-[1fr] justify-items-center pt-24 sm:pt-32"
         >
-          Your Daily Coffee
-        </h1>
-
-        <a
-          href="menu.html"
-          class="group absolute bottom-[-96px] left-1/2 z-10 w-[min(85vw,600px)] -translate-x-1/2 sm:bottom-[-140px]"
-        >
-          <img
-            src="assets/img/cup.png"
-            alt="Iced coffee in a to-go cup"
-            class="w-full drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
-          />
-          <span
-            class="text-label absolute left-1/2 top-1/3 -translate-x-1/2 rounded-full bg-[var(--cd-ink)] px-6 py-3 text-[var(--cd-cream)] normal-case tracking-normal"
-            >See it</span
+          <h1
+            class="text-display-xl col-start-1 row-start-1 self-start px-4 text-center text-[var(--cd-ink)]"
           >
-        </a>
+            Your Daily Coffee
+          </h1>
+
+          <a
+            href="menu.html"
+            class="group col-start-1 row-start-1 z-10 w-[min(55vw,440px)] translate-y-[20%] self-end"
+          >
+            <img
+              src="assets/img/cup.png"
+              alt="Iced coffee in a to-go cup"
+              class="w-full drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
+            />
+            <span
+              class="text-label absolute left-1/2 top-1/4 -translate-x-1/2 rounded-full bg-[var(--cd-ink)] px-6 py-3 text-[var(--cd-cream)] normal-case tracking-normal"
+              >See it</span
+            >
+          </a>
+        </div>
       </section>
 
       <div
