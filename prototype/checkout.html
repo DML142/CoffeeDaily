@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout — Coffee Daily</title>
+    <link rel="stylesheet" href="assets/css/tokens.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body>
+    <header
+      id="top"
+      class="sticky top-0 z-50 border-b border-[var(--cd-line)] bg-[var(--cd-paper-warm)]"
+    >
+      <div
+        class="mx-auto grid h-20 max-w-[1440px] grid-cols-3 items-center px-4 sm:px-6 lg:px-10"
+      >
+        <a href="index.html" class="text-display-m justify-self-start"
+          >Coffee Daily</a
+        >
+
+        <nav class="hidden items-center gap-8 justify-self-center md:flex">
+          <a href="menu.html" class="text-body hover:text-[var(--cd-orange)]"
+            >Menu</a
+          >
+          <a
+            href="locations.html"
+            class="text-body hover:text-[var(--cd-orange)]"
+            >Locations</a
+          >
+          <a href="about.html" class="text-body hover:text-[var(--cd-orange)]"
+            >About</a
+          >
+        </nav>
+
+        <div class="flex items-center justify-self-end gap-3">
+          <a
+            href="locations.html"
+            class="hidden border border-[var(--cd-ink)] px-4 py-2 text-body-s sm:inline-block"
+            >Choose location</a
+          >
+          <a
+            href="cart.html"
+            class="bg-[var(--cd-orange)] px-4 py-2 text-body-s text-[var(--cd-cream)]"
+            >Cart</a
+          >
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="bg-[var(--cd-paper-warm)] px-4 py-16 sm:px-6 lg:px-10">
+        <div class="mx-auto max-w-[1440px]">
+          <p class="text-label mb-6 text-[var(--cd-ink-mute)]">[ Checkout ]</p>
+          <h1 class="text-display-xl mb-4 text-[var(--cd-ink)]">
+            Fulton Market
+          </h1>
+          <a href="cart.html" class="text-body-s underline">Back to cart</a>
+        </div>
+      </section>
+
+      <section class="bg-[var(--cd-paper)] px-4 pb-16 sm:px-6 lg:px-10">
+        <form
+          class="mx-auto flex max-w-[720px] flex-col gap-8"
+          action="#"
+          method="post"
+        >
+          <div class="bg-[var(--cd-paper-warm)] p-6 sm:p-8">
+            <p class="text-label mb-6 text-[var(--cd-ink-mute)]">
+              [ 1. Order review ]
+            </p>
+            <div class="flex flex-col divide-y divide-[var(--cd-line)]">
+              <div class="flex items-center gap-4 py-3">
+                <div class="h-16 w-16 shrink-0 bg-[var(--cd-line)]"></div>
+                <div class="flex-1">
+                  <p class="text-body mb-1">Iced Cold Brew</p>
+                  <p class="text-body-s text-[var(--cd-ink-mute)]">
+                    Glass, M, ×1
+                  </p>
+                </div>
+                <p class="text-mono text-body-s">$4.50</p>
+              </div>
+              <div class="flex items-center gap-4 py-3">
+                <div class="h-16 w-16 shrink-0 bg-[var(--cd-line)]"></div>
+                <div class="flex-1">
+                  <p class="text-body mb-1">Oat Milk Latte</p>
+                  <p class="text-body-s text-[var(--cd-ink-mute)]">
+                    Ceramic mug, L, ×2
+                  </p>
+                </div>
+                <p class="text-mono text-body-s">$10.50</p>
+              </div>
+            </div>
+            <div
+              class="mt-4 flex items-center justify-between border-t border-[var(--cd-line)] pt-4"
+            >
+              <p class="text-body">Subtotal</p>
+              <p class="text-mono text-display-m">$15.00</p>
+            </div>
+          </div>
+
+          <div class="bg-[var(--cd-paper-warm)] p-6 sm:p-8">
+            <p class="text-label mb-6 text-[var(--cd-ink-mute)]">
+              [ 2. Pickup location ]
+            </p>
+            <p class="text-display-m mb-2">Fulton Market</p>
+            <p class="text-body-s text-[var(--cd-ink-mute)]">
+              1200 W Fulton St, Chicago, IL 60607
+            </p>
+            <p class="text-body-s text-[var(--cd-ink-mute)]">
+              Mon–Fri 6am–7pm, Sat–Sun 7am–6pm
+            </p>
+          </div>
+
+          <div class="bg-[var(--cd-paper-warm)] p-6 sm:p-8">
+            <p class="text-label mb-6 text-[var(--cd-ink-mute)]">
+              [ 3. Contact ]
+            </p>
+            <div class="flex flex-col gap-4">
+              <div class="flex gap-3">
+                <label class="w-28">
+                  <span class="sr-only">Country code</span>
+                  <select
+                    class="text-body-s w-full border border-[var(--cd-line)] bg-[var(--cd-paper)] px-3 py-3"
+                  >
+                    <option value="+1">US +1</option>
+                  </select>
+                </label>
+                <label class="flex-1">
+                  <span class="sr-only">Phone number</span>
+                  <input
+                    type="tel"
+                    required
+                    placeholder="Phone number"
+                    class="text-body-s w-full border border-[var(--cd-line)] bg-[var(--cd-paper)] px-4 py-3"
+                  />
+                </label>
+              </div>
+              <label>
+                <span class="sr-only">Full name</span>
+                <input
+                  type="text"
+                  required
+                  placeholder="Full name"
+                  class="text-body-s w-full border border-[var(--cd-line)] bg-[var(--cd-paper)] px-4 py-3"
+                />
+              </label>
+              <label>
+                <span class="sr-only">Email</span>
+                <input
+                  type="email"
+                  required
+                  placeholder="Email"
+                  class="text-body-s w-full border border-[var(--cd-line)] bg-[var(--cd-paper)] px-4 py-3"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div class="bg-[var(--cd-paper-warm)] p-6 sm:p-8">
+            <p class="text-label mb-6 text-[var(--cd-ink-mute)]">
+              [ 4. Pickup time ]
+            </p>
+            <div class="flex flex-col gap-3">
+              <label
+                class="text-body-s flex items-center gap-3 border border-[var(--cd-line)] px-4 py-3"
+              >
+                <input type="radio" name="pickup-time" value="asap" checked />
+                ASAP
+              </label>
+              <label
+                class="text-body-s flex items-center gap-3 border border-[var(--cd-line)] px-4 py-3"
+              >
+                <input type="radio" name="pickup-time" value="slot" />
+                Pick a time
+                <select
+                  class="text-body-s ml-auto border border-[var(--cd-line)] bg-[var(--cd-paper)] px-3 py-2"
+                >
+                  <option>Today, 3:00 PM</option>
+                  <option>Today, 3:15 PM</option>
+                  <option>Today, 3:30 PM</option>
+                  <option>Today, 3:45 PM</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <div class="bg-[var(--cd-paper-warm)] p-6 sm:p-8">
+            <p class="text-label mb-2 text-[var(--cd-ink-mute)]">
+              [ 5. Params file ]
+            </p>
+            <p class="text-body-s mb-6 text-[var(--cd-ink-mute)]">
+              Upload a PDF or TXT to prefill fields. Optional.
+            </p>
+            <input
+              type="file"
+              accept=".pdf,.txt"
+              class="text-body-s w-full border border-[var(--cd-line)] bg-[var(--cd-paper)] px-4 py-3"
+            />
+          </div>
+
+          <div class="bg-[var(--cd-paper-warm)] p-6 sm:p-8">
+            <p class="text-label mb-6 text-[var(--cd-ink-mute)]">
+              [ 6. Notes ]
+            </p>
+            <textarea
+              maxlength="500"
+              rows="4"
+              placeholder="Anything we should know? (optional)"
+              class="text-body-s w-full border border-[var(--cd-line)] bg-[var(--cd-paper)] px-4 py-3"
+            ></textarea>
+          </div>
+
+          <button
+            type="submit"
+            class="text-body-s w-full bg-[var(--cd-orange)] px-6 py-4 text-[var(--cd-cream)]"
+          >
+            Pay $15.00
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <footer
+      class="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col justify-between bg-[var(--cd-ink)] text-[var(--cd-cream)]"
+    >
+      <div
+        class="overflow-hidden border-b border-white/10 py-6 text-display-l whitespace-nowrap"
+      >
+        Beyond your expectations / Beyond your expectations / Beyond your
+        expectations /
+      </div>
+
+      <div
+        class="mx-auto flex max-w-[1440px] items-start justify-between gap-8 px-4 py-16 sm:px-6 lg:px-10"
+      >
+        <div class="grid flex-1 grid-cols-2 gap-8 md:grid-cols-4">
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Visit us</p>
+            <p class="text-body-s">1200 W Fulton St</p>
+            <p class="text-body-s">Chicago, IL 60607</p>
+          </div>
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Sitemap</p>
+            <ul class="flex flex-col gap-2 text-body-s">
+              <li><a href="menu.html">Menu</a></li>
+              <li><a href="locations.html">Locations</a></li>
+              <li><a href="about.html">About</a></li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Products</p>
+            <ul class="flex flex-col gap-2 text-body-s">
+              <li>Coffee</li>
+              <li>Food</li>
+              <li>Beans</li>
+              <li>Merch</li>
+            </ul>
+          </div>
+          <div>
+            <p class="text-label mb-4 text-[var(--cd-ink-mute)]">Socials</p>
+            <ul class="flex flex-col gap-2 text-body-s">
+              <li><a href="#">Instagram</a></li>
+              <li><a href="#">TikTok</a></li>
+              <li><a href="#">X</a></li>
+            </ul>
+          </div>
+        </div>
+
+        <a
+          href="#top"
+          aria-label="Back to top"
+          class="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/30 sm:flex"
+          >&uarr;</a
+        >
+      </div>
+
+      <div
+        class="mx-auto flex max-w-[1440px] items-center justify-between px-4 py-6 text-body-s text-[var(--cd-ink-mute)] sm:px-6 lg:px-10"
+      >
+        <p>&copy; 2026 Coffee Daily</p>
+        <div class="flex gap-6">
+          <a href="legal/privacy.html">Privacy</a>
+          <a href="legal/terms.html">Terms</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
