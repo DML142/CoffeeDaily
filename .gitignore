@@ -1,0 +1,17 @@
+.env
+.claude/
+CLAUDE.md
+tech.md
+references.md
+progress.md
+.cursor/
+.aider*
+AGENTS.md
+.mcp.json
+
+node_modules/
+.turbo/
+dist/
+build/
+.next/
+coverage/
