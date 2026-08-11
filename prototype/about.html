@@ -13,7 +13,7 @@
       class="sticky top-0 z-50 border-b border-[var(--cd-line)] bg-[var(--cd-paper-warm)]"
     >
       <div
-        class="mx-auto grid max-w-[1440px] grid-cols-3 items-center px-4 py-4 sm:px-6 lg:px-10"
+        class="mx-auto grid h-20 max-w-[1440px] grid-cols-3 items-center px-4 sm:px-6 lg:px-10"
       >
         <a href="index.html" class="text-display-m justify-self-start"
           >Coffee Daily</a
@@ -49,13 +49,24 @@
     </header>
 
     <main>
-      <section class="bg-[var(--cd-paper-warm)] px-4 py-24 sm:px-6 lg:px-10">
-        <div class="mx-auto max-w-[1440px]">
-          <p class="text-label mb-6 text-[var(--cd-ink-mute)]">[ About ]</p>
-          <h1 class="text-display-xl mb-6 max-w-4xl text-[var(--cd-ink)]">
+      <section
+        class="relative flex min-h-[calc(100vh-var(--cd-header-h))] items-end overflow-hidden bg-[var(--cd-ink)] px-4 py-24 sm:px-6 lg:px-10"
+      >
+        <video
+          class="absolute inset-0 h-full w-full object-cover"
+          src="assets/video/making-coffee.mp4"
+          autoplay
+          muted
+          loop
+          playsinline
+        ></video>
+        <div class="absolute inset-0 bg-[var(--cd-ink)]/60"></div>
+        <div class="relative mx-auto max-w-[1440px]">
+          <p class="text-label mb-6 text-[var(--cd-cream)]/70">[ About ]</p>
+          <h1 class="text-display-xl mb-6 max-w-4xl text-[var(--cd-cream)]">
             Built around the roast, not the brand
           </h1>
-          <p class="text-body-l max-w-2xl text-[var(--cd-ink-mute)]">
+          <p class="text-body-l max-w-2xl text-[var(--cd-cream)]/80">
             Coffee Daily started as one counter roasting small batches for
             whoever walked in. Six locations later, the counter still runs the
             same way.
@@ -63,12 +74,14 @@
         </div>
       </section>
 
-      <section class="bg-[var(--cd-paper)] px-4 py-16 sm:px-6 lg:px-10">
+      <section
+        class="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col bg-[var(--cd-paper)] px-4 py-16 sm:px-6 lg:px-10"
+      >
         <div
-          class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 md:grid-cols-2"
+          class="mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 grid-rows-[1fr] gap-12 md:grid-cols-2"
         >
-          <div class="aspect-[4/5] rounded-lg bg-[var(--cd-paper-warm)]"></div>
-          <div>
+          <div class="rounded-lg bg-[var(--cd-paper-warm)]"></div>
+          <div class="flex flex-col justify-center">
             <p class="text-label mb-4 text-[var(--cd-ink-mute)]">
               [ Since the start ]
             </p>
@@ -82,11 +95,13 @@
         </div>
       </section>
 
-      <section class="bg-[var(--cd-paper)] px-4 pb-16 sm:px-6 lg:px-10">
+      <section
+        class="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col bg-[var(--cd-paper)] px-4 py-16 sm:px-6 lg:px-10"
+      >
         <div
-          class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 md:grid-cols-2"
+          class="mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 grid-rows-[1fr] gap-12 md:grid-cols-2"
         >
-          <div class="order-2 md:order-1">
+          <div class="order-2 flex flex-col justify-center md:order-1">
             <p class="text-label mb-4 text-[var(--cd-ink-mute)]">
               [ Sourcing ]
             </p>
@@ -97,17 +112,19 @@
             </p>
           </div>
           <div
-            class="order-1 aspect-[4/5] rounded-lg bg-[var(--cd-paper-warm)] md:order-2"
+            class="order-1 rounded-lg bg-[var(--cd-paper-warm)] md:order-2"
           ></div>
         </div>
       </section>
 
-      <section class="bg-[var(--cd-paper)] px-4 pb-16 sm:px-6 lg:px-10">
+      <section
+        class="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col bg-[var(--cd-paper)] px-4 py-16 sm:px-6 lg:px-10"
+      >
         <div
-          class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 md:grid-cols-2"
+          class="mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 grid-rows-[1fr] gap-12 md:grid-cols-2"
         >
-          <div class="aspect-[4/5] rounded-lg bg-[var(--cd-paper-warm)]"></div>
-          <div>
+          <div class="rounded-lg bg-[var(--cd-paper-warm)]"></div>
+          <div class="flex flex-col justify-center">
             <p class="text-label mb-4 text-[var(--cd-ink-mute)]">
               [ Roasting ]
             </p>
@@ -121,11 +138,13 @@
         </div>
       </section>
 
-      <section class="bg-[var(--cd-paper)] px-4 pb-16 sm:px-6 lg:px-10">
+      <section
+        class="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col bg-[var(--cd-paper)] px-4 py-16 sm:px-6 lg:px-10"
+      >
         <div
-          class="mx-auto grid max-w-[1440px] grid-cols-1 items-center gap-12 md:grid-cols-2"
+          class="mx-auto grid w-full max-w-[1440px] flex-1 grid-cols-1 grid-rows-[1fr] gap-12 md:grid-cols-2"
         >
-          <div class="order-2 md:order-1">
+          <div class="order-2 flex flex-col justify-center md:order-1">
             <p class="text-label mb-4 text-[var(--cd-ink-mute)]">
               [ The crew ]
             </p>
@@ -138,7 +157,7 @@
             </p>
           </div>
           <div
-            class="order-1 aspect-[4/5] rounded-lg bg-[var(--cd-paper-warm)] md:order-2"
+            class="order-1 rounded-lg bg-[var(--cd-paper-warm)] md:order-2"
           ></div>
         </div>
       </section>
@@ -187,7 +206,9 @@
       </section>
     </main>
 
-    <footer class="bg-[var(--cd-ink)] text-[var(--cd-cream)]">
+    <footer
+      class="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col justify-between bg-[var(--cd-ink)] text-[var(--cd-cream)]"
+    >
       <div
         class="overflow-hidden border-b border-white/10 py-6 text-display-l whitespace-nowrap"
       >

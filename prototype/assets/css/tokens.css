@@ -12,6 +12,8 @@
   --cd-success: #2e7d4f;
   --cd-danger: #c1341b;
 
+  --cd-header-h: 80px;
+
   --cd-font-display: "General Sans", sans-serif;
   --cd-font-body: "Inter", sans-serif;
   --cd-font-mono: "JetBrains Mono", monospace;
@@ -147,4 +149,10 @@ a {
 
 .text-mono {
   font-family: var(--cd-font-mono);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  video {
+    display: none;
+  }
 }
