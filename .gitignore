@@ -16,3 +16,6 @@ build/
 .next/
 coverage/
 *.tsbuildinfo
+test-results/
+playwright-report/
+blob-report/

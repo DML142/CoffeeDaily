@@ -17,4 +17,16 @@ describe("Select", () => {
 
     expect(select).toHaveValue("chicago");
   });
+
+  it("marks itself invalid when hasError is set", () => {
+    render(
+      <Select aria-label="Sort" hasError>
+        <option value="a">A</option>
+      </Select>,
+    );
+    expect(screen.getByLabelText("Sort")).toHaveAttribute(
+      "aria-invalid",
+      "true",
+    );
+  });
 });

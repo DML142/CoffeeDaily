@@ -39,4 +39,18 @@ describe("Modal", () => {
     await userEvent.keyboard("{Escape}");
     expect(onOpenChange).toHaveBeenCalledWith(false);
   });
+
+  it("renders a description when given one", () => {
+    render(
+      <Modal
+        open
+        onOpenChange={() => {}}
+        title="Params"
+        description="Upload a PDF or TXT."
+      >
+        Content
+      </Modal>,
+    );
+    expect(screen.getByText("Upload a PDF or TXT.")).toBeInTheDocument();
+  });
 });
