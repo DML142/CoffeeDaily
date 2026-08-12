@@ -3,7 +3,7 @@ import preset from "@coffee-daily/config/tailwind";
 
 const config: Config = {
   presets: [preset],
-  content: ["./src/**/*.{ts,tsx}"],
+  content: ["./src/**/*.{ts,tsx}", "../../packages/ui/src/**/*.{ts,tsx}"],
 };
 
 export default config;
