@@ -7,8 +7,8 @@ import { Checkbox } from "@coffee-daily/ui/Checkbox";
 import { Input } from "@coffee-daily/ui/Input";
 import { Select } from "@coffee-daily/ui/Select";
 import { isLocationOpenNow } from "@coffee-daily/utils/hours";
-import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import { usePageTransition } from "@/motion/PageTransition";
 import { Reveal } from "@/motion/Reveal";
 import { useLocationStore } from "@/stores/useLocationStore";
 
@@ -27,7 +27,7 @@ function formatHour(time: string) {
 }
 
 export default function LocationsPage() {
-  const router = useRouter();
+  const { navigate } = usePageTransition();
   const selectLocation = useLocationStore((state) => state.selectLocation);
   const [query, setQuery] = useState("");
   const [city, setCity] = useState("");
@@ -55,7 +55,7 @@ export default function LocationsPage() {
 
   const handleChoose = (locationId: string) => {
     selectLocation(locationId);
-    router.push("/menu");
+    navigate("/menu");
   };
 
   return (

@@ -4,14 +4,14 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useLocationStore } from "@/stores/useLocationStore";
 import LocationsPage from "./page";
 
-const pushMock = vi.fn();
+const navigateMock = vi.fn();
 
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: pushMock }),
+vi.mock("@/motion/PageTransition", () => ({
+  usePageTransition: () => ({ navigate: navigateMock }),
 }));
 
 beforeEach(() => {
-  pushMock.mockClear();
+  navigateMock.mockClear();
   useLocationStore.setState({
     selectedLocationId: null,
     recentLocationIds: [],
@@ -66,6 +66,6 @@ describe("LocationsPage", () => {
     await userEvent.click(firstChooseButton!);
 
     expect(useLocationStore.getState().selectedLocationId).toBeTruthy();
-    expect(pushMock).toHaveBeenCalledWith("/menu");
+    expect(navigateMock).toHaveBeenCalledWith("/menu");
   });
 });

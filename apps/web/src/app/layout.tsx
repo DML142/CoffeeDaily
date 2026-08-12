@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { Cursor } from "@/motion/Cursor";
 import { FooterReveal } from "@/motion/FooterReveal";
+import { PageTransitionProvider } from "@/motion/PageTransition";
 import { SmoothScrollProvider } from "@/motion/SmoothScrollProvider";
 import "./globals.css";
 
@@ -78,9 +79,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Cursor />
           <Header />
           <MobileNav />
-          <SmoothScrollProvider>
-            <FooterReveal>{children}</FooterReveal>
-          </SmoothScrollProvider>
+          <PageTransitionProvider>
+            <SmoothScrollProvider>
+              <FooterReveal>{children}</FooterReveal>
+            </SmoothScrollProvider>
+          </PageTransitionProvider>
         </ToastProvider>
       </body>
     </html>
