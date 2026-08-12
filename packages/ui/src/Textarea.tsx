@@ -17,6 +17,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           className,
         )}
         aria-invalid={hasError}
+        data-cursor="text"
         {...props}
       />
     );

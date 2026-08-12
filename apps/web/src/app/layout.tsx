@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { Cursor } from "@/motion/Cursor";
 import { SmoothScrollProvider } from "@/motion/SmoothScrollProvider";
 import "./globals.css";
 
@@ -74,6 +75,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="bg-cd-paper font-body text-cd-ink antialiased">
         <ToastProvider>
+          <Cursor />
           <Header />
           <MobileNav />
           <SmoothScrollProvider>

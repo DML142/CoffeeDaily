@@ -43,6 +43,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={cn(buttonVariants({ variant, size }), className)}
         disabled={disabled ?? isLoading}
         aria-busy={isLoading}
+        data-cursor="button"
         {...props}
       >
         {isLoading ? (

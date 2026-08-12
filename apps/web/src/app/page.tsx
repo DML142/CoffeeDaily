@@ -40,6 +40,8 @@ export default function HomePage() {
 
           <Link
             href="/menu/iced-cold-brew"
+            data-cursor="label"
+            data-cursor-label="See it"
             className="group col-start-1 row-start-1 z-10 w-[min(75vw,560px)] translate-y-[48px] self-end"
           >
             <Image
@@ -50,7 +52,7 @@ export default function HomePage() {
               priority
               className="w-full drop-shadow-2xl transition-transform duration-300 group-hover:scale-[1.02]"
             />
-            <span className="absolute left-1/2 top-1/4 -translate-x-1/2 rounded-full bg-cd-ink px-6 py-3 text-label normal-case tracking-normal text-cd-cream">
+            <span className="absolute left-1/2 top-1/4 -translate-x-1/2 rounded-full bg-cd-ink px-6 py-3 text-label normal-case tracking-normal text-cd-cream [@media(pointer:fine)_and_(prefers-reduced-motion:no-preference)]:hidden">
               See it
             </span>
           </Link>

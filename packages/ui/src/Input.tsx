@@ -19,6 +19,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         className,
       )}
       aria-invalid={hasError}
+      data-cursor="text"
       {...props}
     />
   );

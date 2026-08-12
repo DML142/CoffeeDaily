@@ -51,7 +51,12 @@ export function ProductCard({
   }
 
   return (
-    <Link href={`/menu/${product.slug}`} className="bg-cd-paper-warm p-4">
+    <Link
+      href={`/menu/${product.slug}`}
+      data-cursor="label"
+      data-cursor-label="Enter"
+      className="bg-cd-paper-warm p-4"
+    >
       <div className="mb-4 aspect-square bg-cd-line" />
       <p className="mb-1 text-display-m text-cd-orange">{product.name}</p>
       <p className="mb-3 font-mono text-body-s text-cd-ink-mute">
