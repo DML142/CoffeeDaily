@@ -4,15 +4,17 @@ import type { ButtonHTMLAttributes } from "react";
 import { cn } from "../lib/cn";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 text-body-s transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cd-orange disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center gap-2 text-body-s transition-[background-color,color,box-shadow] duration-200 ease-out motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-cd-orange disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        primary: "bg-cd-orange text-cd-cream hover:bg-cd-orange-deep",
+        primary:
+          "bg-cd-orange text-cd-cream ring-1 ring-inset ring-transparent hover:bg-cd-cream hover:text-cd-orange hover:ring-cd-orange",
         secondary:
           "border border-cd-ink text-cd-ink hover:bg-cd-ink hover:text-cd-cream",
         ghost: "text-cd-ink hover:text-cd-orange",
-        danger: "bg-cd-danger text-cd-cream hover:opacity-90",
+        danger:
+          "bg-cd-danger text-cd-cream ring-1 ring-inset ring-transparent hover:bg-cd-cream hover:text-cd-danger hover:ring-cd-danger",
       },
       size: {
         sm: "px-3 py-1.5",
