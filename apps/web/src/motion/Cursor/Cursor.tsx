@@ -55,8 +55,8 @@ export function Cursor() {
 
     const dotX = gsap.quickTo(dot, "x", { duration: 0.05, ease: "power3" });
     const dotY = gsap.quickTo(dot, "y", { duration: 0.05, ease: "power3" });
-    const ringX = gsap.quickTo(ring, "x", { duration: 0.5, ease: "power3" });
-    const ringY = gsap.quickTo(ring, "y", { duration: 0.5, ease: "power3" });
+    const ringX = gsap.quickTo(ring, "x", { duration: 0.3, ease: "power3" });
+    const ringY = gsap.quickTo(ring, "y", { duration: 0.3, ease: "power3" });
 
     let hasPositioned = false;
 
@@ -67,7 +67,7 @@ export function Cursor() {
       ringY(event.clientY);
       if (!hasPositioned) {
         hasPositioned = true;
-        document.body.style.cursor = "none";
+        document.body.classList.add("cursor-hidden");
         setConfirmed(true);
       }
     }
@@ -99,7 +99,7 @@ export function Cursor() {
       document.removeEventListener("pointermove", handlePointerMove);
       document.removeEventListener("pointerover", handlePointerOver);
       document.removeEventListener("pointerout", handlePointerOut);
-      document.body.style.removeProperty("cursor");
+      document.body.classList.remove("cursor-hidden");
       setConfirmed(false);
       setVariant("default");
       setLabel(null);

@@ -49,7 +49,7 @@ describe("Cursor", () => {
   beforeEach(() => {
     vi.unstubAllGlobals();
     quickTo.mockClear();
-    document.body.style.removeProperty("cursor");
+    document.body.classList.remove("cursor-hidden");
   });
 
   it("renders nothing on touch devices", () => {
@@ -74,9 +74,9 @@ describe("Cursor", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     render(<Cursor />);
 
-    expect(document.body.style.cursor).not.toBe("none");
+    expect(document.body.classList.contains("cursor-hidden")).toBe(false);
     dispatchPointerMove();
-    expect(document.body.style.cursor).toBe("none");
+    expect(document.body.classList.contains("cursor-hidden")).toBe(true);
   });
 
   it("switches to the button variant over a data-cursor=button element", () => {
@@ -144,10 +144,10 @@ describe("Cursor", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     const { unmount } = render(<Cursor />);
     dispatchPointerMove();
-    expect(document.body.style.cursor).toBe("none");
+    expect(document.body.classList.contains("cursor-hidden")).toBe(true);
 
     unmount();
 
-    expect(document.body.style.cursor).toBe("");
+    expect(document.body.classList.contains("cursor-hidden")).toBe(false);
   });
 });
