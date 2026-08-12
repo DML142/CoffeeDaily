@@ -8,7 +8,7 @@ import { Footer } from "@/components/layout/Footer";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const START_BRIGHTNESS = 0.35;
-const LAG_PERCENT = 20;
+const LAG_PERCENT = 40;
 
 export function FooterReveal({ children }: { children: ReactNode }) {
   const footerRef = useRef<HTMLElement>(null);
@@ -45,7 +45,7 @@ export function FooterReveal({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <main>{children}</main>
+      <main className="relative z-10">{children}</main>
       <Footer ref={footerRef} />
     </>
   );
