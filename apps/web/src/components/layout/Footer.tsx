@@ -79,7 +79,7 @@ export function Footer({ ref }: FooterProps) {
           aria-label="Back to top"
           className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/30 sm:flex"
         >
-          &uarr;
+          ↑
         </a>
       </div>
 
