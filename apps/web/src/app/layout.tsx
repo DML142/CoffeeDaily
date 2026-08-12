@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { SmoothScrollProvider } from "@/motion/SmoothScrollProvider";
 import "./globals.css";
 
 const generalSans = localFont({
@@ -75,8 +76,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <ToastProvider>
           <Header />
           <MobileNav />
-          <main>{children}</main>
-          <Footer />
+          <SmoothScrollProvider>
+            <main>{children}</main>
+            <Footer />
+          </SmoothScrollProvider>
         </ToastProvider>
       </body>
     </html>
