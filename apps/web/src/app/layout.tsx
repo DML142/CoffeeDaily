@@ -2,10 +2,10 @@ import { ToastProvider } from "@coffee-daily/ui/Toast";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
-import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { Cursor } from "@/motion/Cursor";
+import { FooterReveal } from "@/motion/FooterReveal";
 import { SmoothScrollProvider } from "@/motion/SmoothScrollProvider";
 import "./globals.css";
 
@@ -79,8 +79,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Header />
           <MobileNav />
           <SmoothScrollProvider>
-            <main>{children}</main>
-            <Footer />
+            <FooterReveal>{children}</FooterReveal>
           </SmoothScrollProvider>
         </ToastProvider>
       </body>

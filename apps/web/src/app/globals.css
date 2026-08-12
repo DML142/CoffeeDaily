@@ -7,6 +7,7 @@
 @layer base {
   :root {
     --cd-header-h: 80px;
+    --cd-footer-h: calc(100vh - var(--cd-header-h));
   }
 
   h1,
