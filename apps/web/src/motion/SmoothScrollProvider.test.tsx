@@ -3,24 +3,32 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockMatchMedia } from "@/test-utils/mockMatchMedia";
 import { SmoothScrollProvider } from "./SmoothScrollProvider";
 
-const { create, kill, scrollTo } = vi.hoisted(() => {
-  const kill = vi.fn();
-  const scrollTo = vi.fn();
-  const create = vi.fn(() => ({ kill, scrollTo }));
-  return { create, kill, scrollTo };
-});
+const { LenisMock, destroy, on, raf, tickerAdd, tickerRemove } = vi.hoisted(
+  () => {
+    const destroy = vi.fn();
+    const on = vi.fn();
+    const raf = vi.fn();
+    const tickerAdd = vi.fn();
+    const tickerRemove = vi.fn();
+    const LenisMock = vi.fn(function LenisStub() {
+      return { destroy, on, raf };
+    });
+    return { LenisMock, destroy, on, raf, tickerAdd, tickerRemove };
+  },
+);
 
 vi.mock("gsap", () => ({
-  gsap: { registerPlugin: vi.fn() },
+  gsap: {
+    registerPlugin: vi.fn(),
+    ticker: { add: tickerAdd, remove: tickerRemove },
+  },
 }));
 
 vi.mock("gsap/ScrollTrigger", () => ({
-  ScrollTrigger: {},
+  ScrollTrigger: { update: vi.fn() },
 }));
 
-vi.mock("gsap/ScrollSmoother", () => ({
-  ScrollSmoother: { create },
-}));
+vi.mock("lenis", () => ({ default: LenisMock }));
 
 const POINTER_FINE = "(pointer: fine)";
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
@@ -28,9 +36,12 @@ const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 describe("SmoothScrollProvider", () => {
   beforeEach(() => {
     vi.unstubAllGlobals();
-    create.mockClear();
-    kill.mockClear();
-    scrollTo.mockClear();
+    LenisMock.mockClear();
+    destroy.mockClear();
+    on.mockClear();
+    raf.mockClear();
+    tickerAdd.mockClear();
+    tickerRemove.mockClear();
   });
 
   it("renders children regardless of guard state", () => {
@@ -45,7 +56,7 @@ describe("SmoothScrollProvider", () => {
     expect(screen.getByText("page content")).toBeInTheDocument();
   });
 
-  it("creates ScrollSmoother on pointer-fine devices with motion allowed", () => {
+  it("starts Lenis on pointer-fine devices with motion allowed", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
 
     render(
@@ -54,10 +65,39 @@ describe("SmoothScrollProvider", () => {
       </SmoothScrollProvider>,
     );
 
-    expect(create).toHaveBeenCalledTimes(1);
+    expect(LenisMock).toHaveBeenCalledTimes(1);
+    expect(LenisMock).toHaveBeenCalledWith({ autoRaf: false });
+    expect(tickerAdd).toHaveBeenCalledTimes(1);
   });
 
-  it("skips ScrollSmoother on touch devices", () => {
+  it("drives Lenis from the gsap ticker in milliseconds", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+
+    render(
+      <SmoothScrollProvider>
+        <p>content</p>
+      </SmoothScrollProvider>,
+    );
+
+    const update = tickerAdd.mock.calls[0]![0] as (time: number) => void;
+    update(2);
+
+    expect(raf).toHaveBeenCalledWith(2000);
+  });
+
+  it("keeps ScrollTrigger in sync with Lenis scroll", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+
+    render(
+      <SmoothScrollProvider>
+        <p>content</p>
+      </SmoothScrollProvider>,
+    );
+
+    expect(on).toHaveBeenCalledWith("scroll", expect.any(Function));
+  });
+
+  it("skips Lenis on touch devices", () => {
     mockMatchMedia({ [POINTER_FINE]: false, [REDUCED_MOTION]: false });
 
     render(
@@ -66,10 +106,10 @@ describe("SmoothScrollProvider", () => {
       </SmoothScrollProvider>,
     );
 
-    expect(create).not.toHaveBeenCalled();
+    expect(LenisMock).not.toHaveBeenCalled();
   });
 
-  it("skips ScrollSmoother when reduced motion is preferred", () => {
+  it("skips Lenis when reduced motion is preferred", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: true });
 
     render(
@@ -78,10 +118,10 @@ describe("SmoothScrollProvider", () => {
       </SmoothScrollProvider>,
     );
 
-    expect(create).not.toHaveBeenCalled();
+    expect(LenisMock).not.toHaveBeenCalled();
   });
 
-  it("kills the smoother on unmount", () => {
+  it("destroys Lenis and detaches the ticker on unmount", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
 
     const { unmount } = render(
@@ -92,88 +132,19 @@ describe("SmoothScrollProvider", () => {
 
     unmount();
 
-    expect(kill).toHaveBeenCalledTimes(1);
+    expect(destroy).toHaveBeenCalledTimes(1);
+    expect(tickerRemove).toHaveBeenCalledTimes(1);
   });
 
-  it("scrolls an off-screen element into view when it receives focus", () => {
+  it("adds no wrapper element around its children", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
 
-    render(
+    const { container } = render(
       <SmoothScrollProvider>
-        <button type="button">off-screen</button>
+        <p>content</p>
       </SmoothScrollProvider>,
     );
 
-    const button = screen.getByText("off-screen");
-    vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
-      top: 2000,
-      bottom: 2040,
-      left: 0,
-      right: 100,
-      width: 100,
-      height: 40,
-      x: 0,
-      y: 2000,
-      toJSON: () => "",
-    });
-
-    button.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
-
-    expect(scrollTo).toHaveBeenCalledWith(button, true);
-  });
-
-  it("does not scroll when a visible element receives focus", () => {
-    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
-
-    render(
-      <SmoothScrollProvider>
-        <button type="button">visible</button>
-      </SmoothScrollProvider>,
-    );
-
-    const button = screen.getByText("visible");
-    vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
-      top: 10,
-      bottom: 50,
-      left: 0,
-      right: 100,
-      width: 100,
-      height: 40,
-      x: 0,
-      y: 10,
-      toJSON: () => "",
-    });
-
-    button.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
-
-    expect(scrollTo).not.toHaveBeenCalled();
-  });
-
-  it("stops listening for focus after unmount", () => {
-    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
-
-    const { unmount } = render(
-      <SmoothScrollProvider>
-        <button type="button">off-screen</button>
-      </SmoothScrollProvider>,
-    );
-
-    const button = screen.getByText("off-screen");
-    vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
-      top: 2000,
-      bottom: 2040,
-      left: 0,
-      right: 100,
-      width: 100,
-      height: 40,
-      x: 0,
-      y: 2000,
-      toJSON: () => "",
-    });
-
-    unmount();
-    document.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
-
-    expect(scrollTo).not.toHaveBeenCalled();
+    expect(container.firstChild).toBe(screen.getByText("content"));
   });
 });
