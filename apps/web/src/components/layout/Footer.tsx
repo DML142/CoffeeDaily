@@ -26,9 +26,9 @@ export function Footer({ ref }: FooterProps) {
   return (
     <footer
       ref={ref}
-      className="sticky bottom-0 flex min-h-[var(--cd-footer-h)] flex-col justify-between bg-cd-ink text-cd-cream"
+      className="flex min-h-[var(--cd-footer-h)] flex-col justify-between bg-cd-ink text-cd-cream"
     >
-      <div className="overflow-hidden border-b border-white/10 py-6 text-display-l">
+      <div className="overflow-hidden border-b border-white/10 py-6 text-display-xl">
         <div className="flex w-max whitespace-nowrap motion-safe:animate-[marquee-ltr_24s_linear_infinite]">
           <span className="pr-4">{MARQUEE_TEXT}</span>
           <span className="pr-4" aria-hidden="true">

@@ -8,36 +8,29 @@ import { Footer } from "@/components/layout/Footer";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const START_BRIGHTNESS = 0.35;
+const LAG_PERCENT = 20;
 
 export function FooterReveal({ children }: { children: ReactNode }) {
-  const mainRef = useRef<HTMLElement>(null);
   const footerRef = useRef<HTMLElement>(null);
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   useEffect(() => {
-    const main = mainRef.current;
     const footer = footerRef.current;
-    if (!main || !footer || reducedMotion) return;
+    if (!footer || reducedMotion) return;
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const headerHeight =
-      parseFloat(
-        getComputedStyle(document.documentElement).getPropertyValue(
-          "--cd-header-h",
-        ),
-      ) || 0;
-
     const tween = gsap.fromTo(
       footer,
-      { filter: `brightness(${START_BRIGHTNESS})` },
+      { yPercent: -LAG_PERCENT, filter: `brightness(${START_BRIGHTNESS})` },
       {
+        yPercent: 0,
         filter: "brightness(1)",
         ease: "none",
         scrollTrigger: {
-          trigger: main,
-          start: "bottom bottom",
-          end: `bottom top+=${headerHeight}`,
+          trigger: footer,
+          start: "top bottom",
+          end: "bottom bottom",
           scrub: true,
         },
       },
@@ -46,15 +39,13 @@ export function FooterReveal({ children }: { children: ReactNode }) {
     return () => {
       tween.scrollTrigger?.kill();
       tween.kill();
-      gsap.set(footer, { clearProps: "filter" });
+      gsap.set(footer, { clearProps: "transform,filter" });
     };
   }, [reducedMotion]);
 
   return (
     <>
-      <main ref={mainRef} className="relative z-10">
-        {children}
-      </main>
+      <main>{children}</main>
       <Footer ref={footerRef} />
     </>
   );
