@@ -7,5 +7,6 @@ export type {
   LocationFeature,
   LocationHours,
 } from "./location";
+export type { Order, OrderItem, OrderStatus } from "./order";
 export type { DietaryTag, Product } from "./product";
 export type { Size, Variant, Vessel } from "./variant";
