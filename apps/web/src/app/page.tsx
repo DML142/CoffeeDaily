@@ -40,7 +40,6 @@ export default function HomePage() {
 
           <Link
             href="/menu/iced-cold-brew"
-            data-cursor="label"
             data-cursor-label="See it"
             className="group col-start-1 row-start-1 z-10 w-[min(75vw,560px)] translate-y-[48px] self-end"
           >

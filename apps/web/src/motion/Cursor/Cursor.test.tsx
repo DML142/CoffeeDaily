@@ -45,11 +45,23 @@ function dispatchPointerOut(target: Element, related: Element | null = null) {
   });
 }
 
+function layer() {
+  return document.querySelector('[aria-hidden="true"]')!;
+}
+
+function appendTarget(tag: string, attributes: Record<string, string> = {}) {
+  const element = document.createElement(tag);
+  for (const [name, value] of Object.entries(attributes)) {
+    element.setAttribute(name, value);
+  }
+  document.body.appendChild(element);
+  return element;
+}
+
 describe("Cursor", () => {
   beforeEach(() => {
     vi.unstubAllGlobals();
     quickTo.mockClear();
-    document.body.classList.remove("cursor-hidden");
   });
 
   it("renders nothing on touch devices", () => {
@@ -64,90 +76,110 @@ describe("Cursor", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("mounts dot and ring layers on pointer-fine devices with motion allowed", () => {
+  it("tracks the pointer with a single lerped layer", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     render(<Cursor />);
-    expect(quickTo).toHaveBeenCalledTimes(4);
+    expect(quickTo).toHaveBeenCalledTimes(2);
+    const [, , vars] = quickTo.mock.calls[0] as unknown as [
+      unknown,
+      string,
+      { duration: number },
+    ];
+    expect(vars.duration).toBe(0.3);
   });
 
-  it("hides the native cursor only after the first pointer position is confirmed", () => {
+  it("stays invisible until the first pointer position lands", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     render(<Cursor />);
 
-    expect(document.body.classList.contains("cursor-hidden")).toBe(false);
+    expect(layer().className).toContain("opacity-0");
     dispatchPointerMove();
-    expect(document.body.classList.contains("cursor-hidden")).toBe(true);
+    expect(layer().className).toContain("opacity-100");
   });
 
-  it("switches to the button variant over a data-cursor=button element", () => {
+  it("leaves the native cursor alone", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     render(<Cursor />);
-    const button = document.createElement("button");
-    button.setAttribute("data-cursor", "button");
-    document.body.appendChild(button);
+    dispatchPointerMove();
 
-    dispatchPointerOver(button);
-
-    const ring = document.querySelectorAll('[aria-hidden="true"]')[1]!;
-    expect(ring.className).toContain("bg-cd-orange");
-
-    document.body.removeChild(button);
+    expect(document.body.style.cursor).toBe("");
+    expect(document.body.className).not.toContain("cursor-hidden");
   });
 
-  it("falls back to the link variant for a plain anchor", () => {
+  it("stays a small dot with nothing hovered", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     render(<Cursor />);
-    const anchor = document.createElement("a");
-    anchor.href = "/menu";
-    document.body.appendChild(anchor);
+
+    expect(layer().getAttribute("style")).toContain("width: 6px");
+  });
+
+  it("grows into a translucent circle over a link", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+    render(<Cursor />);
+    const anchor = appendTarget("a", { href: "/menu" });
 
     dispatchPointerOver(anchor);
 
-    const ring = document.querySelectorAll('[aria-hidden="true"]')[1]!;
-    expect(ring.getAttribute("style")).toContain("width: 56px");
+    expect(layer().getAttribute("style")).toContain("width: 48px");
+    expect(layer().className).toContain("bg-cd-cream/40");
 
-    document.body.removeChild(anchor);
+    anchor.remove();
   });
 
-  it("shows the label text for a data-cursor=label element", () => {
+  it("grows into a translucent circle over a button", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     render(<Cursor />);
-    const link = document.createElement("a");
-    link.setAttribute("data-cursor", "label");
-    link.setAttribute("data-cursor-label", "See it");
-    document.body.appendChild(link);
+    const button = appendTarget("button");
+
+    dispatchPointerOver(button);
+
+    expect(layer().getAttribute("style")).toContain("width: 48px");
+
+    button.remove();
+  });
+
+  it("grows further and shows the label over a labelled target", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+    render(<Cursor />);
+    const link = appendTarget("a", {
+      href: "/menu/iced-cold-brew",
+      "data-cursor-label": "Enter",
+    });
 
     dispatchPointerOver(link);
 
-    expect(screen.getByText("See it")).toBeInTheDocument();
+    expect(layer().getAttribute("style")).toContain("width: 88px");
+    expect(screen.getByText("Enter")).toBeInTheDocument();
 
-    document.body.removeChild(link);
+    link.remove();
   });
 
-  it("resets to the default variant once the pointer leaves the target", () => {
+  it("ignores a text input, which keeps its native caret", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     render(<Cursor />);
-    const button = document.createElement("button");
-    button.setAttribute("data-cursor", "button");
-    document.body.appendChild(button);
+    const input = appendTarget("input", { type: "text" });
 
-    dispatchPointerOver(button);
-    dispatchPointerOut(button, document.body);
+    dispatchPointerOver(input);
 
-    const ring = document.querySelectorAll('[aria-hidden="true"]')[1]!;
-    expect(ring.className).not.toContain("bg-cd-orange");
+    expect(layer().getAttribute("style")).toContain("width: 6px");
 
-    document.body.removeChild(button);
+    input.remove();
   });
 
-  it("restores the native cursor on unmount", () => {
+  it("collapses back to the dot once the pointer leaves the target", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
-    const { unmount } = render(<Cursor />);
-    dispatchPointerMove();
-    expect(document.body.classList.contains("cursor-hidden")).toBe(true);
+    render(<Cursor />);
+    const link = appendTarget("a", {
+      href: "/menu",
+      "data-cursor-label": "Enter",
+    });
 
-    unmount();
+    dispatchPointerOver(link);
+    dispatchPointerOut(link, document.body);
 
-    expect(document.body.classList.contains("cursor-hidden")).toBe(false);
+    expect(layer().getAttribute("style")).toContain("width: 6px");
+    expect(screen.queryByText("Enter")).not.toBeInTheDocument();
+
+    link.remove();
   });
 });

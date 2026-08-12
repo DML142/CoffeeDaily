@@ -53,7 +53,6 @@ export function ProductCard({
   return (
     <Link
       href={`/menu/${product.slug}`}
-      data-cursor="label"
       data-cursor-label="Enter"
       className="bg-cd-paper-warm p-4"
     >
