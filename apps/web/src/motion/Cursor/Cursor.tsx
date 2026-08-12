@@ -88,7 +88,7 @@ export function Cursor() {
       aria-hidden="true"
       style={{ width: size, height: size }}
       className={`pointer-events-none fixed left-0 top-0 z-[100] flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full mix-blend-difference transition-[width,height,background-color,opacity] duration-200 ${
-        active ? "bg-cd-cream/40" : "bg-cd-cream"
+        active ? "bg-cd-cream/40 backdrop-blur" : "bg-cd-cream"
       } ${confirmed ? "opacity-100" : "opacity-0"}`}
     >
       {label ? (

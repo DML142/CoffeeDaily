@@ -106,11 +106,12 @@ describe("Cursor", () => {
     expect(document.body.className).not.toContain("cursor-hidden");
   });
 
-  it("stays a small dot with nothing hovered", () => {
+  it("stays a small sharp dot with nothing hovered", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
     render(<Cursor />);
 
     expect(layer().getAttribute("style")).toContain("width: 6px");
+    expect(layer().className).not.toContain("backdrop-blur");
   });
 
   it("grows into a translucent circle over a link", () => {
@@ -122,6 +123,7 @@ describe("Cursor", () => {
 
     expect(layer().getAttribute("style")).toContain("width: 48px");
     expect(layer().className).toContain("bg-cd-cream/40");
+    expect(layer().className).toContain("backdrop-blur");
 
     anchor.remove();
   });
