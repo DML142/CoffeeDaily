@@ -2,6 +2,7 @@ import { locations, products } from "@coffee-daily/mocks";
 import Image from "next/image";
 import Link from "next/link";
 import { LocationBar } from "@/components/layout/LocationBar";
+import { Reveal } from "@/motion/Reveal";
 
 const FEATURED_SLUGS = [
   "iced-cold-brew",
@@ -63,7 +64,7 @@ export default function HomePage() {
           <p className="mb-8 text-label text-cd-ink-mute">
             [ Featured Drinks ]
           </p>
-          <div className="flex snap-x gap-6 overflow-x-auto pb-4">
+          <Reveal stagger className="flex snap-x gap-6 overflow-x-auto pb-4">
             {featuredProducts.map((product) => (
               <Link
                 key={product.id}
@@ -76,12 +77,15 @@ export default function HomePage() {
                 </p>
               </Link>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="bg-cd-paper px-4 pb-16 sm:px-6 lg:px-10">
-        <div className="container grid grid-cols-2 gap-4 lg:grid-cols-4">
+        <Reveal
+          stagger
+          className="container grid grid-cols-2 gap-4 lg:grid-cols-4"
+        >
           {CATEGORY_TILES.map((tile) => (
             <Link
               key={tile.slug}
@@ -96,11 +100,11 @@ export default function HomePage() {
               </span>
             </Link>
           ))}
-        </div>
+        </Reveal>
       </section>
 
       <section className="bg-cd-paper px-4 py-16 sm:px-6 lg:px-10">
-        <div className="container grid grid-cols-1 items-center gap-12 md:grid-cols-2">
+        <Reveal className="container grid grid-cols-1 items-center gap-12 md:grid-cols-2">
           <div className="aspect-[4/5] rounded-lg bg-cd-paper-warm" />
           <div>
             <p className="mb-4 text-label text-cd-ink-mute">[ Our Story ]</p>
@@ -115,7 +119,7 @@ export default function HomePage() {
               Read more about us
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
 
       <section className="bg-cd-paper px-4 pb-16 sm:px-6 lg:px-10">
@@ -126,7 +130,7 @@ export default function HomePage() {
               See all locations
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+          <Reveal stagger className="grid grid-cols-1 gap-6 md:grid-cols-3">
             {teaserLocations.map((location) => (
               <Link
                 key={location.id}
@@ -139,12 +143,12 @@ export default function HomePage() {
                 </p>
               </Link>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="bg-cd-ink px-4 py-16 text-cd-cream sm:px-6 lg:px-10">
-        <div className="container flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+        <Reveal className="container flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <div>
             <p className="mb-2 text-display-l">Get the weekly roast</p>
             <p className="text-body text-cd-ink-mute">
@@ -168,7 +172,7 @@ export default function HomePage() {
               Subscribe
             </button>
           </form>
-        </div>
+        </Reveal>
       </section>
     </>
   );

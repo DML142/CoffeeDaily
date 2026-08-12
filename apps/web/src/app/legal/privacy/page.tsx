@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Reveal } from "@/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "Privacy — Coffee Daily",
@@ -7,7 +8,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <section className="bg-cd-paper px-4 py-16 sm:px-6 lg:px-10">
-      <div className="container max-w-[720px]">
+      <Reveal className="container max-w-[720px]">
         <p className="mb-6 text-label text-cd-ink-mute">[ Privacy ]</p>
         <h1 className="mb-10 text-display-l text-cd-ink">Privacy policy</h1>
 
@@ -42,7 +43,7 @@ export default function PrivacyPage() {
             </p>
           </div>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

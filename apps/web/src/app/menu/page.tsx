@@ -6,6 +6,7 @@ import type { DietaryTag } from "@coffee-daily/types";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo } from "react";
 import { ProductCard } from "@/components/menu/ProductCard";
+import { Reveal } from "@/motion/Reveal";
 import { useLocationStore } from "@/stores/useLocationStore";
 import {
   type MenuSort,
@@ -270,7 +271,10 @@ function MenuPageContent() {
               No items match those filters.
             </p>
           ) : (
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <Reveal
+              stagger
+              className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            >
               {visibleProducts.map((product) => {
                 const categoryName =
                   categories.find(
@@ -289,7 +293,7 @@ function MenuPageContent() {
                   />
                 );
               })}
-            </div>
+            </Reveal>
           )}
         </div>
       </section>

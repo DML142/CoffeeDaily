@@ -8,6 +8,7 @@ import { Select } from "@coffee-daily/ui/Select";
 import { isLocationOpenNow } from "@coffee-daily/utils/hours";
 import { useRouter } from "next/navigation";
 import { useMemo, useState } from "react";
+import { Reveal } from "@/motion/Reveal";
 import { useLocationStore } from "@/stores/useLocationStore";
 
 const cities = Array.from(
@@ -127,7 +128,10 @@ export default function LocationsPage() {
               No locations match those filters.
             </p>
           ) : (
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <Reveal
+              stagger
+              className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3"
+            >
               {filteredLocations.map((location) => {
                 const isOpen = isLocationOpenNow(location.hours);
                 return (
@@ -166,7 +170,7 @@ export default function LocationsPage() {
                   </div>
                 );
               })}
-            </div>
+            </Reveal>
           )}
         </div>
       </section>

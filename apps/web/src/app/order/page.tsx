@@ -5,6 +5,7 @@ import { Button } from "@coffee-daily/ui/Button";
 import { Input } from "@coffee-daily/ui/Input";
 import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
+import { Reveal } from "@/motion/Reveal";
 
 export default function OrderLookupPage() {
   const router = useRouter();
@@ -48,33 +49,35 @@ export default function OrderLookupPage() {
       </section>
 
       <section className="bg-cd-paper px-4 py-8 sm:px-6 lg:px-10">
-        <form
-          className="container flex max-w-[720px] flex-col gap-4 sm:flex-row"
-          onSubmit={handleSubmit}
-        >
-          <label htmlFor="order-receipt-number" className="flex-1">
-            <span className="sr-only">Receipt number</span>
-            <Input
-              id="order-receipt-number"
-              placeholder="Receipt number"
-              value={receiptNumber}
-              onChange={(event) => setReceiptNumber(event.target.value)}
-            />
-          </label>
-          <label htmlFor="order-phone" className="flex-1">
-            <span className="sr-only">Phone number</span>
-            <Input
-              id="order-phone"
-              type="tel"
-              placeholder="Phone number"
-              value={phone}
-              onChange={(event) => setPhone(event.target.value)}
-            />
-          </label>
-          <Button type="submit" className="shrink-0">
-            Look up
-          </Button>
-        </form>
+        <Reveal className="container max-w-[720px]">
+          <form
+            className="flex flex-col gap-4 sm:flex-row"
+            onSubmit={handleSubmit}
+          >
+            <label htmlFor="order-receipt-number" className="flex-1">
+              <span className="sr-only">Receipt number</span>
+              <Input
+                id="order-receipt-number"
+                placeholder="Receipt number"
+                value={receiptNumber}
+                onChange={(event) => setReceiptNumber(event.target.value)}
+              />
+            </label>
+            <label htmlFor="order-phone" className="flex-1">
+              <span className="sr-only">Phone number</span>
+              <Input
+                id="order-phone"
+                type="tel"
+                placeholder="Phone number"
+                value={phone}
+                onChange={(event) => setPhone(event.target.value)}
+              />
+            </label>
+            <Button type="submit" className="shrink-0">
+              Look up
+            </Button>
+          </form>
+        </Reveal>
         {error ? (
           <p className="container mt-4 max-w-[720px] text-body-s text-cd-danger">
             {error}

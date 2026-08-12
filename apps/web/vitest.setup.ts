@@ -30,3 +30,20 @@ class MemoryStorage implements Storage {
 }
 
 vi.stubGlobal("localStorage", new MemoryStorage());
+
+// jsdom has no real layout or scroll, so ScrollTrigger-driven reveals never
+// resolve there. Default to reduced motion so GSAP-backed components no-op
+// unless a test opts back in via its own matchMedia mock.
+vi.stubGlobal(
+  "matchMedia",
+  vi.fn((query: string) => ({
+    matches: query === "(prefers-reduced-motion: reduce)",
+    media: query,
+    onchange: null,
+    addListener: vi.fn(),
+    removeListener: vi.fn(),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    dispatchEvent: vi.fn(),
+  })),
+);

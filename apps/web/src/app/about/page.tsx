@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Reveal } from "@/motion/Reveal";
 
 export const metadata: Metadata = {
   title: "About — Coffee Daily",
@@ -69,7 +70,7 @@ export default function AboutPage() {
           key={section.title}
           className="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col bg-cd-paper px-4 py-16 sm:px-6 lg:px-10"
         >
-          <div className="container grid w-full flex-1 grid-cols-1 grid-rows-[1fr] gap-12 md:grid-cols-2">
+          <Reveal className="container grid w-full flex-1 grid-cols-1 grid-rows-[1fr] gap-12 md:grid-cols-2">
             <div
               className={`rounded-lg bg-cd-paper-warm ${section.imageFirst ? "" : "order-2 md:order-1"}`}
             />
@@ -82,7 +83,7 @@ export default function AboutPage() {
               <p className="mb-6 text-display-l">{section.title}</p>
               <p className="text-body text-cd-ink-mute">{section.body}</p>
             </div>
-          </div>
+          </Reveal>
         </section>
       ))}
 
@@ -91,7 +92,7 @@ export default function AboutPage() {
           <p className="mb-10 text-label text-cd-ink-mute">
             [ By the numbers ]
           </p>
-          <div className="grid grid-cols-1 gap-10 sm:grid-cols-3">
+          <Reveal stagger className="grid grid-cols-1 gap-10 sm:grid-cols-3">
             {STATS.map((stat) => (
               <div key={stat.label}>
                 <p className="mb-2 text-display-xl text-cd-orange">
@@ -100,12 +101,12 @@ export default function AboutPage() {
                 <p className="text-body text-cd-ink-mute">{stat.label}</p>
               </div>
             ))}
-          </div>
+          </Reveal>
         </div>
       </section>
 
       <section className="bg-cd-paper px-4 py-16 sm:px-6 lg:px-10">
-        <div className="container flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
+        <Reveal className="container flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
           <p className="max-w-xl text-display-l">
             Find the counter closest to you
           </p>
@@ -115,7 +116,7 @@ export default function AboutPage() {
           >
             See all locations
           </Link>
-        </div>
+        </Reveal>
       </section>
     </>
   );
