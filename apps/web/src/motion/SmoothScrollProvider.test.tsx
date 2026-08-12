@@ -1,34 +1,47 @@
 import { render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockMatchMedia } from "@/test-utils/mockMatchMedia";
 import { SmoothScrollProvider } from "./SmoothScrollProvider";
 
-const { create, kill } = vi.hoisted(() => {
-  const kill = vi.fn();
-  const create = vi.fn(() => ({ kill }));
-  return { create, kill };
-});
+const { LenisMock, destroy, on, raf, tickerAdd, tickerRemove } = vi.hoisted(
+  () => {
+    const destroy = vi.fn();
+    const on = vi.fn();
+    const raf = vi.fn();
+    const tickerAdd = vi.fn();
+    const tickerRemove = vi.fn();
+    const LenisMock = vi.fn(function LenisStub() {
+      return { destroy, on, raf };
+    });
+    return { LenisMock, destroy, on, raf, tickerAdd, tickerRemove };
+  },
+);
 
 vi.mock("gsap", () => ({
-  gsap: { registerPlugin: vi.fn() },
+  gsap: {
+    registerPlugin: vi.fn(),
+    ticker: { add: tickerAdd, remove: tickerRemove },
+  },
 }));
 
 vi.mock("gsap/ScrollTrigger", () => ({
-  ScrollTrigger: {},
+  ScrollTrigger: { update: vi.fn() },
 }));
 
-vi.mock("gsap/ScrollSmoother", () => ({
-  ScrollSmoother: { create },
-}));
+vi.mock("lenis", () => ({ default: LenisMock }));
 
 const POINTER_FINE = "(pointer: fine)";
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 
 describe("SmoothScrollProvider", () => {
-  afterEach(() => {
+  beforeEach(() => {
     vi.unstubAllGlobals();
-    create.mockClear();
-    kill.mockClear();
+    LenisMock.mockClear();
+    destroy.mockClear();
+    on.mockClear();
+    raf.mockClear();
+    tickerAdd.mockClear();
+    tickerRemove.mockClear();
   });
 
   it("renders children regardless of guard state", () => {
@@ -43,7 +56,7 @@ describe("SmoothScrollProvider", () => {
     expect(screen.getByText("page content")).toBeInTheDocument();
   });
 
-  it("creates ScrollSmoother on pointer-fine devices with motion allowed", () => {
+  it("starts Lenis on pointer-fine devices with motion allowed", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
 
     render(
@@ -52,10 +65,39 @@ describe("SmoothScrollProvider", () => {
       </SmoothScrollProvider>,
     );
 
-    expect(create).toHaveBeenCalledTimes(1);
+    expect(LenisMock).toHaveBeenCalledTimes(1);
+    expect(LenisMock).toHaveBeenCalledWith({ autoRaf: false });
+    expect(tickerAdd).toHaveBeenCalledTimes(1);
   });
 
-  it("skips ScrollSmoother on touch devices", () => {
+  it("drives Lenis from the gsap ticker in milliseconds", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+
+    render(
+      <SmoothScrollProvider>
+        <p>content</p>
+      </SmoothScrollProvider>,
+    );
+
+    const update = tickerAdd.mock.calls[0]![0] as (time: number) => void;
+    update(2);
+
+    expect(raf).toHaveBeenCalledWith(2000);
+  });
+
+  it("keeps ScrollTrigger in sync with Lenis scroll", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+
+    render(
+      <SmoothScrollProvider>
+        <p>content</p>
+      </SmoothScrollProvider>,
+    );
+
+    expect(on).toHaveBeenCalledWith("scroll", expect.any(Function));
+  });
+
+  it("skips Lenis on touch devices", () => {
     mockMatchMedia({ [POINTER_FINE]: false, [REDUCED_MOTION]: false });
 
     render(
@@ -64,10 +106,10 @@ describe("SmoothScrollProvider", () => {
       </SmoothScrollProvider>,
     );
 
-    expect(create).not.toHaveBeenCalled();
+    expect(LenisMock).not.toHaveBeenCalled();
   });
 
-  it("skips ScrollSmoother when reduced motion is preferred", () => {
+  it("skips Lenis when reduced motion is preferred", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: true });
 
     render(
@@ -76,10 +118,10 @@ describe("SmoothScrollProvider", () => {
       </SmoothScrollProvider>,
     );
 
-    expect(create).not.toHaveBeenCalled();
+    expect(LenisMock).not.toHaveBeenCalled();
   });
 
-  it("kills the smoother on unmount", () => {
+  it("destroys Lenis and detaches the ticker on unmount", () => {
     mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
 
     const { unmount } = render(
@@ -90,6 +132,19 @@ describe("SmoothScrollProvider", () => {
 
     unmount();
 
-    expect(kill).toHaveBeenCalledTimes(1);
+    expect(destroy).toHaveBeenCalledTimes(1);
+    expect(tickerRemove).toHaveBeenCalledTimes(1);
+  });
+
+  it("adds no wrapper element around its children", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+
+    const { container } = render(
+      <SmoothScrollProvider>
+        <p>content</p>
+      </SmoothScrollProvider>,
+    );
+
+    expect(container.firstChild).toBe(screen.getByText("content"));
   });
 });

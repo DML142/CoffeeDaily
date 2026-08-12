@@ -15,6 +15,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { SizePicker } from "@/components/product/SizePicker";
 import { VesselPicker } from "@/components/product/VesselPicker";
+import { Reveal } from "@/motion/Reveal";
 import { useCartStore } from "@/stores/useCartStore";
 import { useLocationStore } from "@/stores/useLocationStore";
 
@@ -105,7 +106,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
 
   return (
     <section className="bg-cd-paper px-4 pb-16 sm:px-6 lg:px-10">
-      <div className="container grid grid-cols-1 gap-12 lg:grid-cols-2">
+      <Reveal className="container grid grid-cols-1 gap-12 lg:grid-cols-2">
         <div className="aspect-square max-h-[60vh] w-full bg-cd-line lg:aspect-auto lg:max-h-none" />
 
         <div>
@@ -163,7 +164,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </p>
           )}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

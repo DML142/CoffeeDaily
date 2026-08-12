@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { Reveal } from "@/motion/Reveal";
 import { useCartStore } from "@/stores/useCartStore";
 
 const PICKUP_SLOTS = [
@@ -127,169 +128,180 @@ export function CheckoutForm({ location }: CheckoutFormProps) {
 
   return (
     <section className="bg-cd-paper px-4 pb-16 sm:px-6 lg:px-10">
-      <form
-        className="mx-auto flex max-w-[720px] flex-col gap-8"
-        onSubmit={handleSubmit(onSubmit)}
-        noValidate
-      >
-        <div className="bg-cd-paper-warm p-6 sm:p-8">
-          <p className="mb-6 text-label text-cd-ink-mute">
-            [ 1. Order review ]
-          </p>
-          <div className="flex flex-col divide-y divide-cd-line">
-            {lines.map((line) => {
-              const product = products.find(
-                (candidate) => candidate.id === line.productId,
-              );
-              return (
-                <div key={line.id} className="flex items-center gap-4 py-3">
-                  <div className="h-16 w-16 shrink-0 bg-cd-line" />
-                  <div className="flex-1">
-                    <p className="mb-1 text-body">{product?.name ?? "Item"}</p>
-                    <p className="text-body-s text-cd-ink-mute">
-                      {line.vessel}, {line.size}, ×{line.quantity}
+      <Reveal>
+        <form
+          className="mx-auto flex max-w-[720px] flex-col gap-8"
+          onSubmit={handleSubmit(onSubmit)}
+          noValidate
+        >
+          <div className="bg-cd-paper-warm p-6 sm:p-8">
+            <p className="mb-6 text-label text-cd-ink-mute">
+              [ 1. Order review ]
+            </p>
+            <div className="flex flex-col divide-y divide-cd-line">
+              {lines.map((line) => {
+                const product = products.find(
+                  (candidate) => candidate.id === line.productId,
+                );
+                return (
+                  <div key={line.id} className="flex items-center gap-4 py-3">
+                    <div className="h-16 w-16 shrink-0 bg-cd-line" />
+                    <div className="flex-1">
+                      <p className="mb-1 text-body">
+                        {product?.name ?? "Item"}
+                      </p>
+                      <p className="text-body-s text-cd-ink-mute">
+                        {line.vessel}, {line.size}, ×{line.quantity}
+                      </p>
+                    </div>
+                    <p className="font-mono text-body-s">
+                      {formatMoney(line.unitPriceMinor * line.quantity)}
                     </p>
                   </div>
-                  <p className="font-mono text-body-s">
-                    {formatMoney(line.unitPriceMinor * line.quantity)}
-                  </p>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            <div className="mt-4 flex items-center justify-between border-t border-cd-line pt-4">
+              <p className="text-body">Subtotal</p>
+              <p className="font-mono text-display-m">
+                {formatMoney(subtotalMinor)}
+              </p>
+            </div>
           </div>
-          <div className="mt-4 flex items-center justify-between border-t border-cd-line pt-4">
-            <p className="text-body">Subtotal</p>
-            <p className="font-mono text-display-m">
-              {formatMoney(subtotalMinor)}
+
+          <div className="bg-cd-paper-warm p-6 sm:p-8">
+            <p className="mb-6 text-label text-cd-ink-mute">
+              [ 2. Pickup location ]
             </p>
+            <p className="mb-2 text-display-m">{location.name}</p>
+            <p className="text-body-s text-cd-ink-mute">{location.address}</p>
           </div>
-        </div>
 
-        <div className="bg-cd-paper-warm p-6 sm:p-8">
-          <p className="mb-6 text-label text-cd-ink-mute">
-            [ 2. Pickup location ]
-          </p>
-          <p className="mb-2 text-display-m">{location.name}</p>
-          <p className="text-body-s text-cd-ink-mute">{location.address}</p>
-        </div>
+          <div className="bg-cd-paper-warm p-6 sm:p-8">
+            <p className="mb-6 text-label text-cd-ink-mute">[ 3. Contact ]</p>
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-3">
+                <label htmlFor="checkout-country-code" className="w-28">
+                  <span className="sr-only">Country code</span>
+                  <Select
+                    id="checkout-country-code"
+                    {...register("countryCode")}
+                  >
+                    <option value="+1">US +1</option>
+                  </Select>
+                </label>
+                <label htmlFor="checkout-phone" className="flex-1">
+                  <span className="sr-only">Phone number</span>
+                  <Input
+                    id="checkout-phone"
+                    type="tel"
+                    placeholder="Phone number"
+                    hasError={Boolean(errors.phone)}
+                    {...register("phone")}
+                  />
+                </label>
+              </div>
+              {errors.phone ? (
+                <p className="text-body-s text-cd-danger">
+                  {errors.phone.message}
+                </p>
+              ) : null}
 
-        <div className="bg-cd-paper-warm p-6 sm:p-8">
-          <p className="mb-6 text-label text-cd-ink-mute">[ 3. Contact ]</p>
-          <div className="flex flex-col gap-4">
-            <div className="flex gap-3">
-              <label htmlFor="checkout-country-code" className="w-28">
-                <span className="sr-only">Country code</span>
-                <Select id="checkout-country-code" {...register("countryCode")}>
-                  <option value="+1">US +1</option>
-                </Select>
-              </label>
-              <label htmlFor="checkout-phone" className="flex-1">
-                <span className="sr-only">Phone number</span>
+              <label htmlFor="checkout-name">
+                <span className="sr-only">Full name</span>
                 <Input
-                  id="checkout-phone"
-                  type="tel"
-                  placeholder="Phone number"
-                  hasError={Boolean(errors.phone)}
-                  {...register("phone")}
+                  id="checkout-name"
+                  type="text"
+                  placeholder="Full name"
+                  hasError={Boolean(errors.name)}
+                  {...register("name")}
                 />
               </label>
+              {errors.name ? (
+                <p className="text-body-s text-cd-danger">
+                  {errors.name.message}
+                </p>
+              ) : null}
+
+              <label htmlFor="checkout-email">
+                <span className="sr-only">Email</span>
+                <Input
+                  id="checkout-email"
+                  type="email"
+                  placeholder="Email"
+                  hasError={Boolean(errors.email)}
+                  {...register("email")}
+                />
+              </label>
+              {errors.email ? (
+                <p className="text-body-s text-cd-danger">
+                  {errors.email.message}
+                </p>
+              ) : null}
             </div>
-            {errors.phone ? (
-              <p className="text-body-s text-cd-danger">
-                {errors.phone.message}
-              </p>
-            ) : null}
-
-            <label htmlFor="checkout-name">
-              <span className="sr-only">Full name</span>
-              <Input
-                id="checkout-name"
-                type="text"
-                placeholder="Full name"
-                hasError={Boolean(errors.name)}
-                {...register("name")}
-              />
-            </label>
-            {errors.name ? (
-              <p className="text-body-s text-cd-danger">
-                {errors.name.message}
-              </p>
-            ) : null}
-
-            <label htmlFor="checkout-email">
-              <span className="sr-only">Email</span>
-              <Input
-                id="checkout-email"
-                type="email"
-                placeholder="Email"
-                hasError={Boolean(errors.email)}
-                {...register("email")}
-              />
-            </label>
-            {errors.email ? (
-              <p className="text-body-s text-cd-danger">
-                {errors.email.message}
-              </p>
-            ) : null}
           </div>
-        </div>
 
-        <div className="bg-cd-paper-warm p-6 sm:p-8">
-          <p className="mb-6 text-label text-cd-ink-mute">[ 4. Pickup time ]</p>
-          <div className="flex flex-col gap-3">
-            <label className="flex items-center gap-3 border border-cd-line px-4 py-3 text-body-s">
-              <input type="radio" value="asap" {...register("pickupTime")} />
-              ASAP
-            </label>
-            <label className="flex flex-wrap items-center gap-3 border border-cd-line px-4 py-3 text-body-s">
-              <input type="radio" value="slot" {...register("pickupTime")} />
-              Pick a time
-              <Select
-                className="sm:ml-auto sm:w-auto"
-                disabled={pickupTime !== "slot"}
-                {...register("pickupSlot")}
-              >
-                {PICKUP_SLOTS.map((slot) => (
-                  <option key={slot} value={slot}>
-                    {slot}
-                  </option>
-                ))}
-              </Select>
-            </label>
-            {errors.pickupSlot ? (
-              <p className="text-body-s text-cd-danger">
-                {errors.pickupSlot.message}
-              </p>
-            ) : null}
+          <div className="bg-cd-paper-warm p-6 sm:p-8">
+            <p className="mb-6 text-label text-cd-ink-mute">
+              [ 4. Pickup time ]
+            </p>
+            <div className="flex flex-col gap-3">
+              <label className="flex items-center gap-3 border border-cd-line px-4 py-3 text-body-s">
+                <input type="radio" value="asap" {...register("pickupTime")} />
+                ASAP
+              </label>
+              <label className="flex flex-wrap items-center gap-3 border border-cd-line px-4 py-3 text-body-s">
+                <input type="radio" value="slot" {...register("pickupTime")} />
+                Pick a time
+                <Select
+                  className="sm:ml-auto sm:w-auto"
+                  disabled={pickupTime !== "slot"}
+                  {...register("pickupSlot")}
+                >
+                  {PICKUP_SLOTS.map((slot) => (
+                    <option key={slot} value={slot}>
+                      {slot}
+                    </option>
+                  ))}
+                </Select>
+              </label>
+              {errors.pickupSlot ? (
+                <p className="text-body-s text-cd-danger">
+                  {errors.pickupSlot.message}
+                </p>
+              ) : null}
+            </div>
           </div>
-        </div>
 
-        <div className="bg-cd-paper-warm p-6 sm:p-8">
-          <p className="mb-2 text-label text-cd-ink-mute">[ 5. Params file ]</p>
-          <p className="mb-6 text-body-s text-cd-ink-mute">
-            Upload a PDF or TXT to prefill fields. Optional.
-          </p>
-          <input
-            type="file"
-            accept=".pdf,.txt"
-            className="w-full text-body-s"
-          />
-        </div>
+          <div className="bg-cd-paper-warm p-6 sm:p-8">
+            <p className="mb-2 text-label text-cd-ink-mute">
+              [ 5. Params file ]
+            </p>
+            <p className="mb-6 text-body-s text-cd-ink-mute">
+              Upload a PDF or TXT to prefill fields. Optional.
+            </p>
+            <input
+              type="file"
+              accept=".pdf,.txt"
+              className="w-full text-body-s"
+            />
+          </div>
 
-        <div className="bg-cd-paper-warm p-6 sm:p-8">
-          <p className="mb-6 text-label text-cd-ink-mute">[ 6. Notes ]</p>
-          <Textarea
-            rows={4}
-            maxLength={500}
-            placeholder="Anything we should know? (optional)"
-            {...register("notes")}
-          />
-        </div>
+          <div className="bg-cd-paper-warm p-6 sm:p-8">
+            <p className="mb-6 text-label text-cd-ink-mute">[ 6. Notes ]</p>
+            <Textarea
+              rows={4}
+              maxLength={500}
+              placeholder="Anything we should know? (optional)"
+              {...register("notes")}
+            />
+          </div>
 
-        <Button type="submit" isLoading={isSubmitting} className="w-full">
-          Pay {formatMoney(subtotalMinor)}
-        </Button>
-      </form>
+          <Button type="submit" isLoading={isSubmitting} className="w-full">
+            Pay {formatMoney(subtotalMinor)}
+          </Button>
+        </form>
+      </Reveal>
     </section>
   );
 }

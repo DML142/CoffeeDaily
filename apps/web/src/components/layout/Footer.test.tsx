@@ -22,4 +22,11 @@ describe("Footer", () => {
       "#top",
     );
   });
+
+  it("duplicates the marquee text for a seamless loop but hides the copy from screen readers", () => {
+    render(<Footer />);
+    const copies = screen.getAllByText(/Beyond your expectations/);
+    expect(copies).toHaveLength(2);
+    expect(copies[1]).toHaveAttribute("aria-hidden", "true");
+  });
 });

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Ref } from "react";
 
 const SITEMAP_LINKS = [
   { href: "/menu", label: "Menu" },
@@ -14,12 +15,26 @@ const SOCIAL_LINKS = [
   { href: "#", label: "X" },
 ];
 
-export function Footer() {
+const MARQUEE_TEXT =
+  "Beyond your expectations / Beyond your expectations / Beyond your expectations / ";
+
+type FooterProps = {
+  ref?: Ref<HTMLElement>;
+};
+
+export function Footer({ ref }: FooterProps) {
   return (
-    <footer className="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col justify-between bg-cd-ink text-cd-cream">
-      <div className="overflow-hidden whitespace-nowrap border-b border-white/10 py-6 text-display-l">
-        Beyond your expectations / Beyond your expectations / Beyond your
-        expectations /
+    <footer
+      ref={ref}
+      className="flex min-h-[var(--cd-footer-h)] flex-col justify-between bg-cd-ink text-cd-cream"
+    >
+      <div className="overflow-hidden border-b border-white/10 py-6 text-display-xl">
+        <div className="flex w-max whitespace-nowrap motion-safe:animate-[marquee-ltr_24s_linear_infinite]">
+          <span className="pr-4">{MARQUEE_TEXT}</span>
+          <span className="pr-4" aria-hidden="true">
+            {MARQUEE_TEXT}
+          </span>
+        </div>
       </div>
 
       <div className="container flex w-full items-start justify-between gap-8 py-16">

@@ -4,7 +4,6 @@ test("browse, choose a location, add to cart, and check out to a mock success sc
   page,
 }) => {
   await page.goto("/locations");
-  // Fulton Market is the first location in the mock fixtures.
   await page.getByRole("button", { name: "Choose" }).first().click();
   await expect(page).toHaveURL("/menu");
 
