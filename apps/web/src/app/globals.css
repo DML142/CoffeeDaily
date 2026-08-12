@@ -1,3 +1,31 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --cd-header-h: 80px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+}
+
+@layer utilities {
+  .text-display-xl,
+  .text-display-l,
+  .text-display-m,
+  .text-label {
+    font-family: var(--font-display);
+  }
+
+  .text-label {
+    text-transform: uppercase;
+  }
+}
