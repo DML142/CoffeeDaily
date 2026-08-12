@@ -2,6 +2,7 @@
 
 import { locations } from "@coffee-daily/mocks";
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { useCartStore } from "@/stores/useCartStore";
 import { useLocationStore } from "@/stores/useLocationStore";
 import { useUiStore } from "@/stores/useUiStore";
@@ -11,6 +12,26 @@ const NAV_LINKS = [
   { href: "/locations", label: "Locations" },
   { href: "/about", label: "About" },
 ];
+
+function SweepFill({
+  overlayClassName,
+  children,
+}: {
+  overlayClassName: string;
+  children: ReactNode;
+}) {
+  return (
+    <>
+      <span className="relative">{children}</span>
+      <span
+        aria-hidden="true"
+        className={`absolute inset-0 z-10 flex -translate-x-full items-center justify-center transition-transform duration-[400ms] ease-in-out motion-reduce:transition-none group-hover:translate-x-0 ${overlayClassName}`}
+      >
+        {children}
+      </span>
+    </>
+  );
+}
 
 export function Header() {
   const selectedLocationId = useLocationStore(
@@ -50,18 +71,22 @@ export function Header() {
         <div className="flex items-center justify-self-end gap-3">
           <Link
             href="/locations"
-            className="hidden border border-cd-ink px-4 py-2 text-body-s sm:inline-block"
+            className="group relative isolate hidden overflow-hidden border border-cd-ink px-4 py-2 text-body-s text-cd-ink sm:inline-flex sm:items-center"
           >
-            {selectedLocation ? selectedLocation.name : "Choose location"}
+            <SweepFill overlayClassName="bg-cd-orange text-cd-cream">
+              {selectedLocation ? selectedLocation.name : "Choose location"}
+            </SweepFill>
           </Link>
           <Link
             href="/cart"
-            className="relative bg-cd-orange px-4 py-2 text-body-s text-cd-cream"
+            className="group relative isolate inline-flex items-center overflow-hidden bg-cd-orange px-4 py-2 text-body-s text-cd-cream"
           >
-            Cart
+            <SweepFill overlayClassName="bg-cd-cream text-cd-orange">
+              Cart
+            </SweepFill>
             {cartCount > 0 ? (
               <span
-                className="absolute -right-2 -top-2 flex h-5 w-5 items-center justify-center rounded-full bg-cd-ink text-[10px] text-cd-cream"
+                className="absolute -right-2 -top-2 z-20 flex h-5 w-5 items-center justify-center rounded-full bg-cd-ink text-[10px] text-cd-cream"
                 aria-hidden="true"
               >
                 {cartCount}
