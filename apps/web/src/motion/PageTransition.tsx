@@ -2,12 +2,37 @@
 
 import { gsap } from "gsap";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useRef } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+} from "react";
+import type { ReactNode } from "react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const CLOSE_DURATION = 0.25;
 const OPEN_DURATION = 0.25;
 const ROTATION_DEG = 12;
+
+type PageTransitionContextValue = {
+  navigate: (href: string) => void;
+};
+
+const PageTransitionContext = createContext<PageTransitionContextValue | null>(
+  null,
+);
+
+export function usePageTransition() {
+  const context = useContext(PageTransitionContext);
+  if (!context) {
+    throw new Error(
+      "usePageTransition must be used within PageTransitionProvider",
+    );
+  }
+  return context;
+}
 
 function resolveInternalHref(anchor: HTMLAnchorElement): string | null {
   if (anchor.target && anchor.target !== "_self") return null;
@@ -33,7 +58,7 @@ function resolveInternalHref(anchor: HTMLAnchorElement): string | null {
   return url.pathname + url.search + url.hash;
 }
 
-export function PageTransition() {
+export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const pendingHrefRef = useRef<string | null>(null);
   const shouldRevealRef = useRef(false);
@@ -60,33 +85,12 @@ export function PageTransition() {
     );
   }, [pathname]);
 
-  useEffect(() => {
-    if (reducedMotion) return;
-
-    function handleClick(event: MouseEvent) {
-      if (
-        event.defaultPrevented ||
-        event.button !== 0 ||
-        event.metaKey ||
-        event.ctrlKey ||
-        event.shiftKey ||
-        event.altKey ||
-        pendingHrefRef.current ||
-        !(event.target instanceof HTMLElement)
-      ) {
-        return;
-      }
-
-      const anchor = event.target.closest("a");
-      if (!anchor) return;
-
-      const href = resolveInternalHref(anchor);
-      if (!href) return;
-
-      event.preventDefault();
+  const navigate = useCallback(
+    (href: string) => {
+      if (pendingHrefRef.current) return;
 
       const overlay = overlayRef.current;
-      if (!overlay) {
+      if (reducedMotion || !overlay) {
         router.push(href);
         return;
       }
@@ -108,17 +112,48 @@ export function PageTransition() {
           },
         },
       );
+    },
+    [reducedMotion, router],
+  );
+
+  useEffect(() => {
+    if (reducedMotion) return;
+
+    function handleClick(event: MouseEvent) {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey ||
+        !(event.target instanceof HTMLElement)
+      ) {
+        return;
+      }
+
+      const anchor = event.target.closest("a");
+      if (!anchor) return;
+
+      const href = resolveInternalHref(anchor);
+      if (!href) return;
+
+      event.preventDefault();
+      navigate(href);
     }
 
     document.addEventListener("click", handleClick, true);
     return () => document.removeEventListener("click", handleClick, true);
-  }, [reducedMotion, router]);
+  }, [reducedMotion, navigate]);
 
   return (
-    <div
-      ref={overlayRef}
-      aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[200] scale-0 bg-cd-ink"
-    />
+    <PageTransitionContext.Provider value={{ navigate }}>
+      <div
+        ref={overlayRef}
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-0 z-[200] scale-0 bg-cd-ink"
+      />
+      {children}
+    </PageTransitionContext.Provider>
   );
 }

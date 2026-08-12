@@ -3,12 +3,12 @@
 import { orders } from "@coffee-daily/mocks";
 import { Button } from "@coffee-daily/ui/Button";
 import { Input } from "@coffee-daily/ui/Input";
-import { useRouter } from "next/navigation";
 import { type FormEvent, useState } from "react";
+import { usePageTransition } from "@/motion/PageTransition";
 import { Reveal } from "@/motion/Reveal";
 
 export default function OrderLookupPage() {
-  const router = useRouter();
+  const { navigate } = usePageTransition();
   const [receiptNumber, setReceiptNumber] = useState("");
   const [phone, setPhone] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -30,7 +30,7 @@ export default function OrderLookupPage() {
     }
 
     setError(null);
-    router.push(`/order/${order.receiptNumber}`);
+    navigate(`/order/${order.receiptNumber}`);
   }
 
   return (

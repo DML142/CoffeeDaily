@@ -3,14 +3,14 @@ import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import OrderLookupPage from "./page";
 
-const pushMock = vi.fn();
+const navigateMock = vi.fn();
 
-vi.mock("next/navigation", () => ({
-  useRouter: () => ({ push: pushMock }),
+vi.mock("@/motion/PageTransition", () => ({
+  usePageTransition: () => ({ navigate: navigateMock }),
 }));
 
 beforeEach(() => {
-  pushMock.mockClear();
+  navigateMock.mockClear();
 });
 
 describe("OrderLookupPage", () => {
@@ -27,7 +27,7 @@ describe("OrderLookupPage", () => {
     );
     await userEvent.click(screen.getByRole("button", { name: "Look up" }));
 
-    expect(pushMock).toHaveBeenCalledWith("/order/CD-10482");
+    expect(navigateMock).toHaveBeenCalledWith("/order/CD-10482");
   });
 
   it("shows an error when the receipt and phone don't match", async () => {
@@ -46,6 +46,6 @@ describe("OrderLookupPage", () => {
     expect(
       screen.getByText("No order found for that receipt number and phone."),
     ).toBeInTheDocument();
-    expect(pushMock).not.toHaveBeenCalled();
+    expect(navigateMock).not.toHaveBeenCalled();
   });
 });

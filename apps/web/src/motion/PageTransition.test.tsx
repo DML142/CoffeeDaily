@@ -1,7 +1,7 @@
-import { act, render } from "@testing-library/react";
+import { act, render, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockMatchMedia } from "@/test-utils/mockMatchMedia";
-import { PageTransition } from "./PageTransition";
+import { PageTransitionProvider, usePageTransition } from "./PageTransition";
 
 const { fromToMock, pushMock, usePathnameMock } = vi.hoisted(() => ({
   fromToMock: vi.fn(
@@ -45,7 +45,7 @@ function clickAnchor(attributes: Record<string, string> = { href: "/menu" }) {
   return event;
 }
 
-describe("PageTransition", () => {
+describe("PageTransitionProvider", () => {
   beforeEach(() => {
     vi.unstubAllGlobals();
     fromToMock.mockClear();
@@ -54,9 +54,13 @@ describe("PageTransition", () => {
     window.history.replaceState(null, "", "/");
   });
 
-  it("renders a hidden full-screen overlay", () => {
+  it("renders a hidden full-screen overlay and its children", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
-    render(<PageTransition />);
+    render(
+      <PageTransitionProvider>
+        <p>page content</p>
+      </PageTransitionProvider>,
+    );
 
     expect(overlay().className).toContain("scale-0");
     expect(overlay().className).toContain("bg-cd-ink");
@@ -64,7 +68,7 @@ describe("PageTransition", () => {
 
   it("intercepts a click on an internal link, plays the close animation anchored bottom-left, then navigates", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
-    render(<PageTransition />);
+    render(<PageTransitionProvider>{null}</PageTransitionProvider>);
 
     const event = clickAnchor({ href: "/menu" });
 
@@ -83,13 +87,15 @@ describe("PageTransition", () => {
 
   it("plays the open animation anchored top-right once the new page mounts", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
-    const { rerender } = render(<PageTransition />);
+    const { rerender } = render(
+      <PageTransitionProvider>{null}</PageTransitionProvider>,
+    );
 
     clickAnchor({ href: "/menu" });
     fromToMock.mockClear();
 
     usePathnameMock.mockReturnValue("/menu");
-    rerender(<PageTransition />);
+    rerender(<PageTransitionProvider>{null}</PageTransitionProvider>);
 
     expect(fromToMock).toHaveBeenCalledTimes(1);
     const [, from, to] = fromToMock.mock.calls[0] as unknown as [
@@ -104,17 +110,19 @@ describe("PageTransition", () => {
 
   it("does not play the open animation on a pathname change it did not trigger itself", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
-    const { rerender } = render(<PageTransition />);
+    const { rerender } = render(
+      <PageTransitionProvider>{null}</PageTransitionProvider>,
+    );
 
     usePathnameMock.mockReturnValue("/about");
-    rerender(<PageTransition />);
+    rerender(<PageTransitionProvider>{null}</PageTransitionProvider>);
 
     expect(fromToMock).not.toHaveBeenCalled();
   });
 
   it("ignores external links", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
-    render(<PageTransition />);
+    render(<PageTransitionProvider>{null}</PageTransitionProvider>);
 
     const event = clickAnchor({ href: "https://example.com" });
 
@@ -125,7 +133,7 @@ describe("PageTransition", () => {
 
   it("ignores links opening in a new tab", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
-    render(<PageTransition />);
+    render(<PageTransitionProvider>{null}</PageTransitionProvider>);
 
     const event = clickAnchor({ href: "/menu", target: "_blank" });
 
@@ -135,7 +143,7 @@ describe("PageTransition", () => {
 
   it("ignores a link to the current page", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
-    render(<PageTransition />);
+    render(<PageTransitionProvider>{null}</PageTransitionProvider>);
 
     const event = clickAnchor({ href: "/" });
 
@@ -145,12 +153,46 @@ describe("PageTransition", () => {
 
   it("does not intercept clicks under reduced motion", () => {
     mockMatchMedia({ [REDUCED_MOTION]: true });
-    render(<PageTransition />);
+    render(<PageTransitionProvider>{null}</PageTransitionProvider>);
 
     const event = clickAnchor({ href: "/menu" });
 
     expect(event.defaultPrevented).toBe(false);
     expect(fromToMock).not.toHaveBeenCalled();
     expect(pushMock).not.toHaveBeenCalled();
+  });
+
+  it("exposes navigate through usePageTransition for programmatic navigation, e.g. after choosing a location", () => {
+    mockMatchMedia({ [REDUCED_MOTION]: false });
+    const { result } = renderHook(() => usePageTransition(), {
+      wrapper: ({ children }) => (
+        <PageTransitionProvider>{children}</PageTransitionProvider>
+      ),
+    });
+
+    act(() => {
+      result.current.navigate("/menu");
+    });
+
+    expect(fromToMock).toHaveBeenCalledTimes(1);
+    const [, from] = fromToMock.mock.calls[0] as unknown as [
+      unknown,
+      Record<string, unknown>,
+    ];
+    expect(from.transformOrigin).toBe("0% 100%");
+    expect(pushMock).toHaveBeenCalledWith("/menu");
+  });
+
+  it("throws when usePageTransition is called outside the provider", () => {
+    const { result } = renderHook(() => {
+      try {
+        usePageTransition();
+        return null;
+      } catch (error) {
+        return error;
+      }
+    });
+
+    expect(result.current).toBeInstanceOf(Error);
   });
 });
