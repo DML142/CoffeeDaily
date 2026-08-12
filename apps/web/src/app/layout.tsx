@@ -6,6 +6,7 @@ import { Header } from "@/components/layout/Header";
 import { MobileNav } from "@/components/layout/MobileNav";
 import { Cursor } from "@/motion/Cursor";
 import { FooterReveal } from "@/motion/FooterReveal";
+import { PageTransition } from "@/motion/PageTransition";
 import { SmoothScrollProvider } from "@/motion/SmoothScrollProvider";
 import "./globals.css";
 
@@ -75,6 +76,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="bg-cd-paper font-body text-cd-ink antialiased">
         <ToastProvider>
+          <PageTransition />
           <Cursor />
           <Header />
           <MobileNav />
