@@ -122,7 +122,7 @@ describe("Cursor", () => {
     dispatchPointerOver(anchor);
 
     expect(layer().getAttribute("style")).toContain("width: 48px");
-    expect(layer().className).toContain("bg-cd-cream/40");
+    expect(layer().className).toContain("bg-cd-cream/20");
     expect(layer().className).toContain("backdrop-blur");
 
     anchor.remove();
