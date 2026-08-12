@@ -12,4 +12,12 @@ describe("Textarea", () => {
 
     expect(textarea).toHaveValue("Leave at the counter");
   });
+
+  it("marks itself invalid when hasError is set", () => {
+    render(<Textarea aria-label="Notes" hasError />);
+    expect(screen.getByLabelText("Notes")).toHaveAttribute(
+      "aria-invalid",
+      "true",
+    );
+  });
 });

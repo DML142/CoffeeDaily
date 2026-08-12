@@ -29,3 +29,9 @@
     text-transform: uppercase;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  video {
+    display: none;
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "name": "@coffee-daily/utils",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./money": "./src/money.ts",
+    "./hours": "./src/hours.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:coverage": "vitest run --coverage"
+  },
+  "dependencies": {
+    "@coffee-daily/types": "workspace:*"
+  },
+  "devDependencies": {
+    "@coffee-daily/config": "workspace:*",
+    "@vitest/coverage-v8": "4.1.10",
+    "typescript": "5.9.3",
+    "vitest": "4.1.10"
+  }
+}

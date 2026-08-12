@@ -1,6 +1,10 @@
+import { ToastProvider } from "@coffee-daily/ui/Toast";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { MobileNav } from "@/components/layout/MobileNav";
 import "./globals.css";
 
 const generalSans = localFont({
@@ -68,7 +72,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={`${generalSans.variable} ${inter.variable} ${jetbrainsMono.variable}`}
     >
       <body className="bg-cd-paper font-body text-cd-ink antialiased">
-        {children}
+        <ToastProvider>
+          <Header />
+          <MobileNav />
+          <main>{children}</main>
+          <Footer />
+        </ToastProvider>
       </body>
     </html>
   );

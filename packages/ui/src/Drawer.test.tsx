@@ -24,4 +24,13 @@ describe("Drawer", () => {
     await userEvent.click(screen.getByRole("button", { name: "Close" }));
     expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
   });
+
+  it("positions itself on the left when side is left", () => {
+    render(
+      <Drawer open onOpenChange={() => {}} title="Menu" side="left">
+        Content
+      </Drawer>,
+    );
+    expect(screen.getByRole("dialog")).toHaveClass("left-0");
+  });
 });

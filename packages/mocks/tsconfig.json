@@ -1,0 +1,9 @@
+{
+  "extends": "@coffee-daily/config/tsconfig",
+  "compilerOptions": {
+    "lib": ["ES2022"],
+    "noEmit": true
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}
