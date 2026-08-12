@@ -15,14 +15,10 @@ export default function CartPage() {
 
   return (
     <>
-      <section className="bg-cd-paper-warm px-4 py-16 sm:px-6 lg:px-10">
+      <section className="flex min-h-[calc(100vh-var(--cd-header-h))] flex-col justify-center bg-cd-paper-warm px-4 sm:px-6 lg:px-10">
         <div className="container">
           <p className="mb-6 text-label text-cd-ink-mute">[ Cart ]</p>
-          <h1 className="mb-6 text-display-xl text-cd-ink">Your cart</h1>
-          <p className="max-w-2xl text-body-l text-cd-ink-mute">
-            Two locations, two separate checkouts. Paying for one leaves the
-            other intact.
-          </p>
+          <h1 className="text-display-xl text-cd-ink">Your cart</h1>
         </div>
       </section>
 

@@ -26,13 +26,13 @@ const teaserLocations = locations.slice(0, 3);
 export default function HomePage() {
   return (
     <>
-      <section className="relative min-h-[100vh] overflow-visible bg-cd-paper-warm">
+      <section className="relative min-h-[calc(100vh-var(--cd-header-h))] overflow-visible bg-cd-paper-warm">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute left-1/2 top-[60%] h-[min(600px,90vw)] w-[min(600px,90vw)] -translate-x-1/2 -translate-y-1/2 rounded-full bg-cd-orange-hot opacity-[0.15] blur-[120px]"
         />
 
-        <div className="grid min-h-[100vh] grid-rows-[1fr] justify-items-center pt-24 sm:pt-32">
+        <div className="grid min-h-[calc(100vh-var(--cd-header-h))] grid-rows-[1fr] justify-items-center pt-24 sm:pt-32">
           <h1 className="col-start-1 row-start-1 self-start px-4 text-center text-display-xl text-cd-ink">
             Your Daily Coffee
           </h1>
