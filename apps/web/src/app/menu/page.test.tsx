@@ -56,9 +56,9 @@ describe("MenuPage", () => {
 
   it("sorts by price ascending", async () => {
     render(<MenuPage />);
-    await userEvent.selectOptions(
-      screen.getByLabelText("Sort by"),
-      "price-asc",
+    await userEvent.click(screen.getByLabelText("Sort by"));
+    await userEvent.click(
+      screen.getByRole("option", { name: "Price low to high" }),
     );
 
     const names = screen

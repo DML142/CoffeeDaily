@@ -1,6 +1,7 @@
 "use client";
 
 import { categories, inventory, products, variants } from "@coffee-daily/mocks";
+import { Checkbox } from "@coffee-daily/ui/Checkbox";
 import { Select } from "@coffee-daily/ui/Select";
 import type { DietaryTag } from "@coffee-daily/types";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -200,64 +201,55 @@ function MenuPageContent() {
 
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
             <div className="flex flex-wrap items-center gap-3">
-              <label className="w-full max-w-[200px]">
+              <label htmlFor="menu-sort" className="w-full max-w-[200px]">
                 <span className="sr-only">Sort by</span>
                 <Select
+                  id="menu-sort"
                   value={filters.sort}
-                  onChange={(event) => {
-                    useFilterStore
-                      .getState()
-                      .setSort(event.target.value as MenuSort);
+                  onValueChange={(value) => {
+                    useFilterStore.getState().setSort(value as MenuSort);
                     syncUrl();
                   }}
-                >
-                  {SORT_OPTIONS.map((option) => (
-                    <option key={option.value} value={option.value}>
-                      {option.label}
-                    </option>
-                  ))}
-                </Select>
+                  options={SORT_OPTIONS}
+                />
               </label>
 
-              <label className="w-full max-w-[200px]">
+              <label
+                htmlFor="menu-price-range"
+                className="w-full max-w-[200px]"
+              >
                 <span className="sr-only">Price range</span>
                 <Select
-                  value={filters.priceRange ?? ""}
-                  onChange={(event) => {
+                  id="menu-price-range"
+                  value={filters.priceRange ?? "any"}
+                  onValueChange={(value) => {
                     useFilterStore
                       .getState()
                       .setPriceRange(
-                        (event.target.value || null) as PriceRange | null,
+                        value === "any" ? null : (value as PriceRange),
                       );
                     syncUrl();
                   }}
-                >
-                  <option value="">Any price</option>
-                  {PRICE_RANGES.map((range) => (
-                    <option key={range.value} value={range.value}>
-                      {range.label}
-                    </option>
-                  ))}
-                </Select>
+                  options={[
+                    { value: "any", label: "Any price" },
+                    ...PRICE_RANGES,
+                  ]}
+                />
               </label>
             </div>
 
             <div className="flex flex-wrap items-center gap-3">
               {DIETARY_OPTIONS.map((option) => (
-                <label
+                <Checkbox
                   key={option.value}
-                  className="flex items-center gap-2 border border-cd-line px-3 py-2 text-body-s"
-                >
-                  <input
-                    type="checkbox"
-                    checked={filters.dietaryTags.includes(option.value)}
-                    onChange={() => {
-                      useFilterStore.getState().toggleDietaryTag(option.value);
-                      syncUrl();
-                    }}
-                  />
-                  {option.label}
-                </label>
+                  label={option.label}
+                  className="border border-cd-line px-3 py-2"
+                  checked={filters.dietaryTags.includes(option.value)}
+                  onChange={() => {
+                    useFilterStore.getState().toggleDietaryTag(option.value);
+                    syncUrl();
+                  }}
+                />
               ))}
             </div>
           </div>
