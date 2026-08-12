@@ -1,3 +1,4 @@
+/** @type {import('tailwindcss').Config} */
 module.exports = {
   theme: {
     container: {
@@ -21,6 +22,24 @@ module.exports = {
         display: ["var(--font-display)", "sans-serif"],
         body: ["var(--font-body)", "sans-serif"],
         mono: ["var(--font-mono)", "monospace"],
+      },
+      fontSize: {
+        "display-xl": [
+          "clamp(2.75rem, 8vw, 7rem)",
+          { lineHeight: "0.95", letterSpacing: "-0.02em", fontWeight: "500" },
+        ],
+        "display-l": [
+          "clamp(2rem, 5vw, 4rem)",
+          { lineHeight: "1.1", letterSpacing: "-0.02em", fontWeight: "500" },
+        ],
+        "display-m": [
+          "clamp(1.5rem, 3vw, 2.25rem)",
+          { lineHeight: "1.2", letterSpacing: "-0.02em", fontWeight: "500" },
+        ],
+        "body-l": ["1.125rem", { lineHeight: "1.5" }],
+        body: ["1rem", { lineHeight: "1.5" }],
+        "body-s": ["0.875rem", { lineHeight: "1.5" }],
+        label: ["0.75rem", { fontWeight: "500", letterSpacing: "0.08em" }],
       },
       colors: {
         "cd-ink": "#101114",
