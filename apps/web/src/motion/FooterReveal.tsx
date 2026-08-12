@@ -2,7 +2,6 @@
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { usePathname } from "next/navigation";
 import { useEffect, useRef } from "react";
 import type { ReactNode } from "react";
 import { Footer } from "@/components/layout/Footer";
@@ -10,11 +9,11 @@ import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const START_BRIGHTNESS = 0.35;
 const LAG_PERCENT = 40;
+const REFRESH_DEBOUNCE_MS = 100;
 
 export function FooterReveal({ children }: { children: ReactNode }) {
   const footerRef = useRef<HTMLElement>(null);
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
-  const pathname = usePathname();
 
   useEffect(() => {
     const footer = footerRef.current;
@@ -47,8 +46,19 @@ export function FooterReveal({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (reducedMotion) return;
-    ScrollTrigger.refresh();
-  }, [pathname, reducedMotion]);
+
+    let timeout: ReturnType<typeof setTimeout>;
+    const observer = new ResizeObserver(() => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => ScrollTrigger.refresh(), REFRESH_DEBOUNCE_MS);
+    });
+    observer.observe(document.body);
+
+    return () => {
+      clearTimeout(timeout);
+      observer.disconnect();
+    };
+  }, [reducedMotion]);
 
   return (
     <>
