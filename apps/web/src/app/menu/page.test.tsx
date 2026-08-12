@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { mockMatchMedia } from "@/test-utils/mockMatchMedia";
 import { useFilterStore } from "@/stores/useFilterStore";
 import { useLocationStore } from "@/stores/useLocationStore";
 import MenuPage from "./page";
@@ -14,8 +15,27 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => searchParams,
 }));
 
+const { gsapTo, gsapFromTo } = vi.hoisted(() => {
+  const gsapTo = vi.fn(
+    (_targets: unknown, vars: { onComplete?: () => void }) => {
+      vars.onComplete?.();
+      return {};
+    },
+  );
+  const gsapFromTo = vi.fn(() => ({}));
+  return { gsapTo, gsapFromTo };
+});
+
+vi.mock("gsap", () => ({
+  gsap: { to: gsapTo, fromTo: gsapFromTo, set: vi.fn() },
+}));
+
+const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
+
 beforeEach(() => {
   replaceMock.mockClear();
+  gsapTo.mockClear();
+  gsapFromTo.mockClear();
   searchParams = new URLSearchParams();
   useLocationStore.setState({
     selectedLocationId: null,
@@ -87,5 +107,22 @@ describe("MenuPage", () => {
 
     expect(screen.getByText("Matcha Latte")).toBeInTheDocument();
     expect(screen.queryByText("Iced Cold Brew")).not.toBeInTheDocument();
+  });
+
+  it("blurs the grid out before swapping to the new filtered set, unless reduced motion is on", async () => {
+    mockMatchMedia({ [REDUCED_MOTION]: false });
+    render(<MenuPage />);
+
+    await userEvent.click(screen.getByRole("button", { name: "Beans" }));
+
+    expect(gsapTo).toHaveBeenCalledTimes(1);
+    const [, vars] = gsapTo.mock.calls[0] as unknown as [
+      unknown,
+      Record<string, unknown>,
+    ];
+    expect(vars.filter).toBe("blur(10px)");
+    expect(vars.scale).toBe(0.94);
+    expect(typeof vars.onComplete).toBe("function");
+    expect(screen.getByText("House Blend, 12oz")).toBeInTheDocument();
   });
 });
