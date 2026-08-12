@@ -28,7 +28,7 @@ export function Reveal({ children, className, stagger = false }: RevealProps) {
     gsap.registerPlugin(ScrollTrigger);
 
     const targets = stagger ? Array.from(container.children) : container;
-    gsap.set(targets, { opacity: 0, y: RISE_PX, pointerEvents: "none" });
+    gsap.set(targets, { opacity: 0, y: RISE_PX });
 
     const tween = gsap.to(targets, {
       opacity: 1,
@@ -36,7 +36,6 @@ export function Reveal({ children, className, stagger = false }: RevealProps) {
       duration: DURATION_S,
       ease: "power3.out",
       stagger: stagger ? STAGGER_S : 0,
-      onComplete: () => gsap.set(targets, { pointerEvents: "auto" }),
       scrollTrigger: {
         trigger: container,
         start: TRIGGER_START,
@@ -47,7 +46,7 @@ export function Reveal({ children, className, stagger = false }: RevealProps) {
     return () => {
       tween.scrollTrigger?.kill();
       tween.kill();
-      gsap.set(targets, { clearProps: "opacity,transform,pointerEvents" });
+      gsap.set(targets, { clearProps: "opacity,transform" });
     };
   }, [reducedMotion, stagger]);
 

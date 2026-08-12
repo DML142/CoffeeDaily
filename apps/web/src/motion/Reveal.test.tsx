@@ -61,7 +61,6 @@ describe("Reveal", () => {
     expect(gsapSet).toHaveBeenCalledWith(container.firstChild, {
       opacity: 0,
       y: 24,
-      pointerEvents: "none",
     });
     expect(gsapTo).toHaveBeenCalledTimes(1);
     const [target, vars] = gsapTo.mock.calls[0] as unknown as [
@@ -80,10 +79,10 @@ describe("Reveal", () => {
     );
   });
 
-  it("blocks pointer events until the reveal finishes, so a click can't land on a target still sliding into place", () => {
+  it("leaves pointer events alone so a mid-tween target stays clickable", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
 
-    const { container } = render(
+    render(
       <Reveal>
         <p>content</p>
       </Reveal>,
@@ -91,14 +90,12 @@ describe("Reveal", () => {
 
     const [, vars] = gsapTo.mock.calls[0] as unknown as [
       unknown,
-      { onComplete: () => void },
+      Record<string, unknown>,
     ];
-    gsapSet.mockClear();
-    vars.onComplete();
-
-    expect(gsapSet).toHaveBeenCalledWith(container.firstChild, {
-      pointerEvents: "auto",
-    });
+    expect(vars.onComplete).toBeUndefined();
+    for (const call of gsapSet.mock.calls) {
+      expect(call[1]).not.toHaveProperty("pointerEvents");
+    }
   });
 
   it("staggers direct children when stagger is set", () => {
