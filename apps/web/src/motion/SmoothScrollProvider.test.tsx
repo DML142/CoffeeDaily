@@ -1,12 +1,13 @@
 import { render, screen } from "@testing-library/react";
-import { afterEach, describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockMatchMedia } from "@/test-utils/mockMatchMedia";
 import { SmoothScrollProvider } from "./SmoothScrollProvider";
 
-const { create, kill } = vi.hoisted(() => {
+const { create, kill, scrollTo } = vi.hoisted(() => {
   const kill = vi.fn();
-  const create = vi.fn(() => ({ kill }));
-  return { create, kill };
+  const scrollTo = vi.fn();
+  const create = vi.fn(() => ({ kill, scrollTo }));
+  return { create, kill, scrollTo };
 });
 
 vi.mock("gsap", () => ({
@@ -25,10 +26,11 @@ const POINTER_FINE = "(pointer: fine)";
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
 
 describe("SmoothScrollProvider", () => {
-  afterEach(() => {
+  beforeEach(() => {
     vi.unstubAllGlobals();
     create.mockClear();
     kill.mockClear();
+    scrollTo.mockClear();
   });
 
   it("renders children regardless of guard state", () => {
@@ -91,5 +93,87 @@ describe("SmoothScrollProvider", () => {
     unmount();
 
     expect(kill).toHaveBeenCalledTimes(1);
+  });
+
+  it("scrolls an off-screen element into view when it receives focus", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+
+    render(
+      <SmoothScrollProvider>
+        <button type="button">off-screen</button>
+      </SmoothScrollProvider>,
+    );
+
+    const button = screen.getByText("off-screen");
+    vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
+      top: 2000,
+      bottom: 2040,
+      left: 0,
+      right: 100,
+      width: 100,
+      height: 40,
+      x: 0,
+      y: 2000,
+      toJSON: () => "",
+    });
+
+    button.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+
+    expect(scrollTo).toHaveBeenCalledWith(button, true);
+  });
+
+  it("does not scroll when a visible element receives focus", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+
+    render(
+      <SmoothScrollProvider>
+        <button type="button">visible</button>
+      </SmoothScrollProvider>,
+    );
+
+    const button = screen.getByText("visible");
+    vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
+      top: 10,
+      bottom: 50,
+      left: 0,
+      right: 100,
+      width: 100,
+      height: 40,
+      x: 0,
+      y: 10,
+      toJSON: () => "",
+    });
+
+    button.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+
+    expect(scrollTo).not.toHaveBeenCalled();
+  });
+
+  it("stops listening for focus after unmount", () => {
+    mockMatchMedia({ [POINTER_FINE]: true, [REDUCED_MOTION]: false });
+
+    const { unmount } = render(
+      <SmoothScrollProvider>
+        <button type="button">off-screen</button>
+      </SmoothScrollProvider>,
+    );
+
+    const button = screen.getByText("off-screen");
+    vi.spyOn(button, "getBoundingClientRect").mockReturnValue({
+      top: 2000,
+      bottom: 2040,
+      left: 0,
+      right: 100,
+      width: 100,
+      height: 40,
+      x: 0,
+      y: 2000,
+      toJSON: () => "",
+    });
+
+    unmount();
+    document.dispatchEvent(new FocusEvent("focusin", { bubbles: true }));
+
+    expect(scrollTo).not.toHaveBeenCalled();
   });
 });

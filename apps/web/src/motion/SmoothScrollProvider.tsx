@@ -26,7 +26,26 @@ export function SmoothScrollProvider({ children }: { children: ReactNode }) {
       effects: false,
     });
 
-    return () => smoother.kill();
+    function handleFocusIn(event: FocusEvent) {
+      const target = event.target;
+      if (!(target instanceof HTMLElement)) return;
+
+      const rect = target.getBoundingClientRect();
+      const isOffscreen =
+        rect.bottom < 0 ||
+        rect.top > window.innerHeight ||
+        rect.right < 0 ||
+        rect.left > window.innerWidth;
+
+      if (isOffscreen) smoother.scrollTo(target, true);
+    }
+
+    document.addEventListener("focusin", handleFocusIn);
+
+    return () => {
+      document.removeEventListener("focusin", handleFocusIn);
+      smoother.kill();
+    };
   }, [smoothScrollEnabled]);
 
   return (
