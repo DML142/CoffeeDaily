@@ -36,4 +36,11 @@ describe("Button", () => {
     expect(button).toHaveFocus();
     expect(button.className).toContain("focus-visible:outline");
   });
+
+  it("inverts its two tones on hover instead of just darkening", () => {
+    render(<Button>Pay</Button>);
+    const button = screen.getByRole("button", { name: "Pay" });
+    expect(button.className).toContain("hover:bg-cd-cream");
+    expect(button.className).toContain("hover:text-cd-orange");
+  });
 });

@@ -51,4 +51,19 @@ describe("Header", () => {
 
     expect(screen.getByText("2")).toBeInTheDocument();
   });
+
+  it("sweeps an inverted-color overlay over the location and cart links, skipped under reduced motion", () => {
+    render(<Header />);
+    const cart = screen.getByRole("link", { name: "Cart" });
+    const overlay = cart.querySelector('[aria-hidden="true"]');
+
+    expect(overlay).not.toBeNull();
+    expect(overlay?.className).toContain("[clip-path:inset(0_100%_0_0)]");
+    expect(overlay?.className).toContain(
+      "group-hover:[clip-path:inset(0_0_0_0)]",
+    );
+    expect(overlay?.className).toContain("motion-reduce:transition-none");
+    expect(overlay?.className).toContain("bg-cd-cream");
+    expect(overlay?.className).toContain("text-cd-orange");
+  });
 });

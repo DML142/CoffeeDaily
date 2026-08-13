@@ -31,6 +31,18 @@ class MemoryStorage implements Storage {
 
 vi.stubGlobal("localStorage", new MemoryStorage());
 
+class MockResizeObserver implements ResizeObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+}
+
+window.ResizeObserver = MockResizeObserver;
+window.HTMLElement.prototype.scrollIntoView = function scrollIntoView() {};
+window.HTMLElement.prototype.hasPointerCapture = () => false;
+window.HTMLElement.prototype.setPointerCapture = () => {};
+window.HTMLElement.prototype.releasePointerCapture = () => {};
+
 // jsdom has no real layout or scroll, so ScrollTrigger-driven reveals never
 // resolve there. Default to reduced motion so GSAP-backed components no-op
 // unless a test opts back in via its own matchMedia mock.

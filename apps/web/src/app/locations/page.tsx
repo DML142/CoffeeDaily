@@ -3,6 +3,7 @@
 import { locations } from "@coffee-daily/mocks";
 import { Badge } from "@coffee-daily/ui/Badge";
 import { Button } from "@coffee-daily/ui/Button";
+import { Checkbox } from "@coffee-daily/ui/Checkbox";
 import { Input } from "@coffee-daily/ui/Input";
 import { Select } from "@coffee-daily/ui/Select";
 import { isLocationOpenNow } from "@coffee-daily/utils/hours";
@@ -85,38 +86,35 @@ export default function LocationsPage() {
           </label>
 
           <div className="flex flex-wrap items-center gap-3">
-            <label className="w-full max-w-[220px]">
+            <label htmlFor="locations-city" className="w-full max-w-[220px]">
               <span className="sr-only">City</span>
               <Select
-                value={city}
-                onChange={(event) => setCity(event.target.value)}
-              >
-                <option value="">All cities</option>
-                {cities.map((cityOption) => (
-                  <option key={cityOption} value={cityOption}>
-                    {cityOption}
-                  </option>
-                ))}
-              </Select>
+                id="locations-city"
+                value={city || "all"}
+                onValueChange={(value) => setCity(value === "all" ? "" : value)}
+                options={[
+                  { value: "all", label: "All cities" },
+                  ...cities.map((cityOption) => ({
+                    value: cityOption,
+                    label: cityOption,
+                  })),
+                ]}
+              />
             </label>
 
-            <label className="flex items-center gap-2 border border-cd-line px-4 py-3 text-body-s">
-              <input
-                type="checkbox"
-                checked={openNowOnly}
-                onChange={(event) => setOpenNowOnly(event.target.checked)}
-              />
-              Open now
-            </label>
+            <Checkbox
+              label="Open now"
+              className="border border-cd-line px-4 py-3"
+              checked={openNowOnly}
+              onChange={(event) => setOpenNowOnly(event.target.checked)}
+            />
 
-            <label className="flex items-center gap-2 border border-cd-line px-4 py-3 text-body-s">
-              <input
-                type="checkbox"
-                checked={driveThroughOnly}
-                onChange={(event) => setDriveThroughOnly(event.target.checked)}
-              />
-              Drive-through
-            </label>
+            <Checkbox
+              label="Drive-through"
+              className="border border-cd-line px-4 py-3"
+              checked={driveThroughOnly}
+              onChange={(event) => setDriveThroughOnly(event.target.checked)}
+            />
           </div>
         </div>
       </section>

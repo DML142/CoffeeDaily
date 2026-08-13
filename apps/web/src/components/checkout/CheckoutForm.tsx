@@ -10,7 +10,7 @@ import { formatMoney } from "@coffee-daily/utils/money";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { z } from "zod";
 import { Reveal } from "@/motion/Reveal";
 import { useCartStore } from "@/stores/useCartStore";
@@ -69,6 +69,7 @@ export function CheckoutForm({ location }: CheckoutFormProps) {
     register,
     handleSubmit,
     watch,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
@@ -183,12 +184,18 @@ export function CheckoutForm({ location }: CheckoutFormProps) {
               <div className="flex gap-3">
                 <label htmlFor="checkout-country-code" className="w-28">
                   <span className="sr-only">Country code</span>
-                  <Select
-                    id="checkout-country-code"
-                    {...register("countryCode")}
-                  >
-                    <option value="+1">US +1</option>
-                  </Select>
+                  <Controller
+                    name="countryCode"
+                    control={control}
+                    render={({ field }) => (
+                      <Select
+                        id="checkout-country-code"
+                        value={field.value}
+                        onValueChange={field.onChange}
+                        options={[{ value: "+1", label: "US +1" }]}
+                      />
+                    )}
+                  />
                 </label>
                 <label htmlFor="checkout-phone" className="flex-1">
                   <span className="sr-only">Phone number</span>
@@ -253,17 +260,23 @@ export function CheckoutForm({ location }: CheckoutFormProps) {
               <label className="flex flex-wrap items-center gap-3 border border-cd-line px-4 py-3 text-body-s">
                 <input type="radio" value="slot" {...register("pickupTime")} />
                 Pick a time
-                <Select
-                  className="sm:ml-auto sm:w-auto"
-                  disabled={pickupTime !== "slot"}
-                  {...register("pickupSlot")}
-                >
-                  {PICKUP_SLOTS.map((slot) => (
-                    <option key={slot} value={slot}>
-                      {slot}
-                    </option>
-                  ))}
-                </Select>
+                <Controller
+                  name="pickupSlot"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      className="sm:ml-auto sm:w-auto"
+                      disabled={pickupTime !== "slot"}
+                      value={field.value ?? ""}
+                      onValueChange={field.onChange}
+                      placeholder="Choose a time"
+                      options={PICKUP_SLOTS.map((slot) => ({
+                        value: slot,
+                        label: slot,
+                      }))}
+                    />
+                  )}
+                />
               </label>
               {errors.pickupSlot ? (
                 <p className="text-body-s text-cd-danger">
