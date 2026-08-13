@@ -54,7 +54,7 @@ export default function HomePage() {
               <Link
                 key={product.id}
                 href={`/menu/${product.slug}`}
-                className="w-64 shrink-0 snap-start rounded-lg bg-cd-paper-warm p-4 transition-colors hover:bg-cd-paper"
+                className="w-64 shrink-0 snap-start rounded-lg bg-cd-paper-warm p-4 transition-colors duration-200 hover:bg-cd-line"
               >
                 <div className="mb-4 aspect-square rounded-lg bg-cd-line" />
                 <p className="mb-2 text-display-m text-cd-orange">
@@ -75,7 +75,7 @@ export default function HomePage() {
             <Link
               key={tile.slug}
               href={`/menu?category=${tile.slug}`}
-              className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-cd-ink transition-colors hover:bg-cd-ink-2"
+              className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-cd-ink transition-colors duration-200 hover:bg-cd-ink-2"
             >
               <span className="absolute bottom-4 left-4 text-display-m text-cd-cream">
                 {tile.label}
@@ -102,7 +102,7 @@ export default function HomePage() {
             </p>
             <Link
               href="/about"
-              className="text-body-s underline transition-colors hover:text-cd-orange"
+              className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
             >
               Read more about us
             </Link>
@@ -116,7 +116,7 @@ export default function HomePage() {
             <p className="text-label text-cd-ink-mute">[ Our Locations ]</p>
             <Link
               href="/locations"
-              className="text-body-s underline transition-colors hover:text-cd-orange"
+              className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
             >
               See all locations
             </Link>
@@ -126,7 +126,7 @@ export default function HomePage() {
               <Link
                 key={location.id}
                 href="/locations"
-                className="rounded-lg bg-cd-paper-warm p-6 transition-colors hover:bg-cd-paper"
+                className="rounded-lg bg-cd-paper-warm p-6 transition-colors duration-200 hover:bg-cd-line"
               >
                 <p className="mb-2 text-display-m">{location.name}</p>
                 <p className="text-body-s text-cd-ink-mute">
@@ -158,7 +158,7 @@ export default function HomePage() {
             </label>
             <button
               type="submit"
-              className="shrink-0 rounded-full bg-cd-orange px-6 py-3 text-body-s text-cd-cream transition-colors hover:bg-cd-orange-deep"
+              className="shrink-0 rounded-full bg-cd-orange px-6 py-3 text-body-s text-cd-cream transition-colors duration-200 hover:bg-cd-orange-deep"
             >
               Subscribe
             </button>

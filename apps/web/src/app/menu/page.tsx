@@ -231,7 +231,7 @@ function MenuPageContent() {
                 useFilterStore.getState().setCategory(null);
                 syncUrl();
               }}
-              className={`px-4 py-2 text-label transition-colors ${
+              className={`px-4 py-2 text-label transition-colors duration-200 ${
                 filters.category === null
                   ? "bg-cd-ink text-cd-cream"
                   : "border border-cd-line hover:border-cd-ink hover:bg-cd-ink hover:text-cd-cream"
@@ -247,7 +247,7 @@ function MenuPageContent() {
                   useFilterStore.getState().setCategory(category.slug);
                   syncUrl();
                 }}
-                className={`px-4 py-2 text-label transition-colors ${
+                className={`px-4 py-2 text-label transition-colors duration-200 ${
                   filters.category === category.slug
                     ? "bg-cd-ink text-cd-cream"
                     : "border border-cd-line hover:border-cd-ink hover:bg-cd-ink hover:text-cd-cream"

@@ -30,7 +30,7 @@ export function SizePicker({
             type="button"
             disabled={isDisabled}
             onClick={() => onChange(size)}
-            className={`border px-4 py-2 text-body-s transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
+            className={`border px-4 py-2 text-body-s transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-40 ${
               isSelected
                 ? "border-cd-ink bg-cd-ink text-cd-cream"
                 : "border-cd-line hover:border-cd-ink hover:bg-cd-ink hover:text-cd-cream"

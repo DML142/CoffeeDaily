@@ -102,7 +102,7 @@ export function CheckoutForm({ location }: CheckoutFormProps) {
           </p>
           <Link
             href={`/order/${receipt.number}`}
-            className="inline-block border border-cd-ink px-6 py-3 text-body-s transition-colors hover:bg-cd-ink hover:text-cd-cream"
+            className="inline-block border border-cd-ink px-6 py-3 text-body-s transition-colors duration-200 hover:bg-cd-ink hover:text-cd-cream"
           >
             Track this order
           </Link>
@@ -119,7 +119,7 @@ export function CheckoutForm({ location }: CheckoutFormProps) {
             Nothing to check out for this location.{" "}
             <Link
               href="/cart"
-              className="underline transition-colors hover:text-cd-orange"
+              className="underline transition-colors duration-200 hover:text-cd-orange"
             >
               Back to cart
             </Link>

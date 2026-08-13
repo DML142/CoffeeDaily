@@ -54,7 +54,7 @@ export function ProductCard({
     <Link
       href={`/menu/${product.slug}`}
       data-cursor-label="Enter"
-      className="bg-cd-paper-warm p-4 transition-colors hover:bg-cd-paper"
+      className="bg-cd-paper-warm p-4 transition-colors duration-200 hover:bg-cd-line"
     >
       <div className="mb-4 aspect-square bg-cd-line" />
       <p className="mb-1 text-display-m text-cd-orange">{product.name}</p>

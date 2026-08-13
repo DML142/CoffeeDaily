@@ -30,7 +30,7 @@ export default function CartPage() {
               Your cart is empty.{" "}
               <Link
                 href="/menu"
-                className="underline transition-colors hover:text-cd-orange"
+                className="underline transition-colors duration-200 hover:text-cd-orange"
               >
                 Browse the menu
               </Link>

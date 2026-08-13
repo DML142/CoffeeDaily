@@ -31,7 +31,7 @@ export function CartGroup({
         <p className="text-display-m">{locationName}</p>
         <Link
           href="/locations"
-          className="text-body-s underline transition-colors hover:text-cd-orange"
+          className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
         >
           Change location
         </Link>
@@ -58,7 +58,7 @@ export function CartGroup({
         </p>
         <Link
           href={`/checkout/${locationId}`}
-          className="w-full bg-cd-orange px-6 py-3 text-center text-body-s text-cd-cream transition-colors hover:bg-cd-orange-deep sm:w-auto"
+          className="w-full bg-cd-orange px-6 py-3 text-center text-body-s text-cd-cream transition-colors duration-200 hover:bg-cd-orange-deep sm:w-auto"
         >
           Checkout {locationName}
         </Link>

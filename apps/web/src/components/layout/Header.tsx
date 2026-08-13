@@ -96,7 +96,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileNavOpen(true)}
-            className="text-body-s transition-colors hover:text-cd-orange md:hidden"
+            className="text-body-s transition-colors duration-200 hover:text-cd-orange md:hidden"
             aria-label="Open menu"
           >
             Menu

@@ -20,7 +20,7 @@ export function LocationBar() {
         </p>
         <Link
           href="/locations"
-          className="text-body-s underline transition-colors hover:text-cd-orange"
+          className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
         >
           {selectedLocation ? "Change location" : "Choose a location"}
         </Link>

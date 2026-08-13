@@ -51,7 +51,7 @@ export function Footer({ ref }: FooterProps) {
                 <li key={link.href}>
                   <Link
                     href={link.href}
-                    className="transition-colors hover:text-cd-orange"
+                    className="transition-colors duration-200 hover:text-cd-orange"
                   >
                     {link.label}
                   </Link>
@@ -74,7 +74,7 @@ export function Footer({ ref }: FooterProps) {
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="transition-colors hover:text-cd-orange"
+                    className="transition-colors duration-200 hover:text-cd-orange"
                   >
                     {link.label}
                   </a>
@@ -87,7 +87,7 @@ export function Footer({ ref }: FooterProps) {
         <a
           href="#top"
           aria-label="Back to top"
-          className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/30 transition-colors hover:border-cd-orange sm:flex"
+          className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/30 transition-colors duration-200 hover:border-cd-orange sm:flex"
         >
           ↑
         </a>
@@ -98,13 +98,13 @@ export function Footer({ ref }: FooterProps) {
         <div className="flex gap-6">
           <Link
             href="/legal/privacy"
-            className="transition-colors hover:text-cd-orange"
+            className="transition-colors duration-200 hover:text-cd-orange"
           >
             Privacy
           </Link>
           <Link
             href="/legal/terms"
-            className="transition-colors hover:text-cd-orange"
+            className="transition-colors duration-200 hover:text-cd-orange"
           >
             Terms
           </Link>

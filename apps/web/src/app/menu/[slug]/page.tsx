@@ -34,7 +34,7 @@ export default async function ProductPage({ params }: ProductPageParams) {
         <div className="container">
           <Link
             href="/menu"
-            className="text-body-s underline transition-colors hover:text-cd-orange"
+            className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
           >
             Back to menu
           </Link>

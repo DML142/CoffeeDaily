@@ -159,7 +159,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
             <p className="text-body-s text-cd-ink-mute">
               <Link
                 href="/locations"
-                className="underline transition-colors hover:text-cd-orange"
+                className="underline transition-colors duration-200 hover:text-cd-orange"
               >
                 Choose a location
               </Link>{" "}
