@@ -141,6 +141,26 @@ describe("PageTransitionProvider", () => {
     expect(fromToMock).not.toHaveBeenCalled();
   });
 
+  it("stops the anchor's own click handler from also firing, e.g. next/link's internal navigation", () => {
+    mockMatchMedia({ [REDUCED_MOTION]: false });
+    render(<PageTransitionProvider>{null}</PageTransitionProvider>);
+
+    const anchor = document.createElement("a");
+    anchor.setAttribute("href", "/menu");
+    const nativeHandler = vi.fn();
+    anchor.addEventListener("click", nativeHandler);
+    document.body.appendChild(anchor);
+
+    const event = new MouseEvent("click", { bubbles: true, cancelable: true });
+    act(() => {
+      anchor.dispatchEvent(event);
+    });
+    anchor.remove();
+
+    expect(nativeHandler).not.toHaveBeenCalled();
+    expect(pushMock).toHaveBeenCalledTimes(1);
+  });
+
   it("ignores a link to the current page", () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
     render(<PageTransitionProvider>{null}</PageTransitionProvider>);

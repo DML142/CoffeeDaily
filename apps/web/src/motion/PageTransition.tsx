@@ -139,6 +139,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
       if (!href) return;
 
       event.preventDefault();
+      event.stopPropagation();
       navigate(href);
     }
 
