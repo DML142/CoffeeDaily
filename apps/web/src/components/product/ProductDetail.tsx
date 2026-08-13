@@ -106,7 +106,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
   }
 
   return (
-    <section className="bg-cd-paper px-4 pb-16 sm:px-6 lg:px-10">
+    <section className="min-h-[calc(100vh-var(--cd-header-h))] bg-cd-paper px-4 pb-16 sm:px-6 lg:px-10">
       <Reveal className="container grid grid-cols-1 gap-12 lg:grid-cols-2">
         <ProductStage
           product={product}
