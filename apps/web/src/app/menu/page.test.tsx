@@ -15,19 +15,25 @@ vi.mock("next/navigation", () => ({
   useSearchParams: () => searchParams,
 }));
 
-const { gsapTo, gsapFromTo } = vi.hoisted(() => {
+const { gsapTo, gsapFromTo, gsapSet } = vi.hoisted(() => {
   const gsapTo = vi.fn(
     (_targets: unknown, vars: { onComplete?: () => void }) => {
       vars.onComplete?.();
       return {};
     },
   );
-  const gsapFromTo = vi.fn(() => ({}));
-  return { gsapTo, gsapFromTo };
+  const gsapFromTo = vi.fn(
+    (_targets: unknown, _from: unknown, vars: { onComplete?: () => void }) => {
+      vars.onComplete?.();
+      return {};
+    },
+  );
+  const gsapSet = vi.fn();
+  return { gsapTo, gsapFromTo, gsapSet };
 });
 
 vi.mock("gsap", () => ({
-  gsap: { to: gsapTo, fromTo: gsapFromTo, set: vi.fn() },
+  gsap: { to: gsapTo, fromTo: gsapFromTo, set: gsapSet },
 }));
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
@@ -36,6 +42,7 @@ beforeEach(() => {
   replaceMock.mockClear();
   gsapTo.mockClear();
   gsapFromTo.mockClear();
+  gsapSet.mockClear();
   searchParams = new URLSearchParams();
   useLocationStore.setState({
     selectedLocationId: null,
@@ -99,6 +106,22 @@ describe("MenuPage", () => {
     ).not.toBeInTheDocument();
     const outOfStock = screen.queryAllByText("Out of stock at this location");
     expect(outOfStock.length).toBeGreaterThan(0);
+  });
+
+  it("clears the entrance animation's inline opacity so out-of-stock dimming isn't masked", () => {
+    mockMatchMedia({ [REDUCED_MOTION]: false });
+    useLocationStore.setState({
+      selectedLocationId: "loc_fulton-market",
+      recentLocationIds: [],
+    });
+    render(<MenuPage />);
+
+    expect(gsapSet).toHaveBeenCalled();
+    const [, vars] = gsapSet.mock.calls[0] as unknown as [
+      unknown,
+      { clearProps: string },
+    ];
+    expect(vars.clearProps).toContain("opacity");
   });
 
   it("reads initial filters from the URL on mount", () => {

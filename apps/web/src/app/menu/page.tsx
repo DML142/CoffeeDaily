@@ -191,7 +191,7 @@ function MenuPageContent() {
         ease: "power3.out",
         stagger: GRID_STAGGER,
         onComplete: () =>
-          gsap.set(grid.children, { clearProps: "filter,transform" }),
+          gsap.set(grid.children, { clearProps: "opacity,filter,transform" }),
       },
     );
   }, [displayedProducts, reducedMotion]);
