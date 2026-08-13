@@ -35,7 +35,7 @@ export function MobileNav() {
           <Link
             key={link.href}
             href={link.href}
-            className="text-body-l"
+            className="text-body-l transition-colors hover:text-cd-orange"
             onClick={() => setMobileNavOpen(false)}
           >
             {link.label}
@@ -43,7 +43,7 @@ export function MobileNav() {
         ))}
         <Link
           href="/locations"
-          className="mt-4 border border-cd-ink px-4 py-2 text-center text-body-s"
+          className="mt-4 border border-cd-ink px-4 py-2 text-center text-body-s transition-colors hover:bg-cd-ink hover:text-cd-cream"
           onClick={() => setMobileNavOpen(false)}
         >
           {selectedLocation ? selectedLocation.name : "Choose location"}

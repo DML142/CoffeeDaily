@@ -31,10 +31,10 @@ export function VesselPicker({
             type="button"
             disabled={isDisabled}
             onClick={() => onChange(vessel)}
-            className={`border px-4 py-2 text-body-s disabled:cursor-not-allowed disabled:opacity-40 ${
+            className={`border px-4 py-2 text-body-s transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${
               isSelected
                 ? "border-cd-ink bg-cd-ink text-cd-cream"
-                : "border-cd-line"
+                : "border-cd-line hover:border-cd-ink hover:bg-cd-ink hover:text-cd-cream"
             }`}
           >
             {VESSEL_LABELS[vessel]}

@@ -157,7 +157,10 @@ export function ProductDetail({ product }: ProductDetailProps) {
             </Button>
           ) : (
             <p className="text-body-s text-cd-ink-mute">
-              <Link href="/locations" className="underline">
+              <Link
+                href="/locations"
+                className="underline transition-colors hover:text-cd-orange"
+              >
                 Choose a location
               </Link>{" "}
               to add this to your cart.

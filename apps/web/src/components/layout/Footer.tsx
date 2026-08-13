@@ -49,7 +49,12 @@ export function Footer({ ref }: FooterProps) {
             <ul className="flex flex-col gap-2 text-body-s">
               {SITEMAP_LINKS.map((link) => (
                 <li key={link.href}>
-                  <Link href={link.href}>{link.label}</Link>
+                  <Link
+                    href={link.href}
+                    className="transition-colors hover:text-cd-orange"
+                  >
+                    {link.label}
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -67,7 +72,12 @@ export function Footer({ ref }: FooterProps) {
             <ul className="flex flex-col gap-2 text-body-s">
               {SOCIAL_LINKS.map((link) => (
                 <li key={link.label}>
-                  <a href={link.href}>{link.label}</a>
+                  <a
+                    href={link.href}
+                    className="transition-colors hover:text-cd-orange"
+                  >
+                    {link.label}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -77,7 +87,7 @@ export function Footer({ ref }: FooterProps) {
         <a
           href="#top"
           aria-label="Back to top"
-          className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/30 sm:flex"
+          className="hidden h-12 w-12 shrink-0 items-center justify-center rounded-full border border-white/30 transition-colors hover:border-cd-orange sm:flex"
         >
           ↑
         </a>
@@ -86,8 +96,18 @@ export function Footer({ ref }: FooterProps) {
       <div className="container flex w-full flex-wrap items-center justify-between gap-4 py-6 text-body-s text-cd-ink-mute">
         <p>&copy; 2026 Coffee Daily</p>
         <div className="flex gap-6">
-          <Link href="/legal/privacy">Privacy</Link>
-          <Link href="/legal/terms">Terms</Link>
+          <Link
+            href="/legal/privacy"
+            className="transition-colors hover:text-cd-orange"
+          >
+            Privacy
+          </Link>
+          <Link
+            href="/legal/terms"
+            className="transition-colors hover:text-cd-orange"
+          >
+            Terms
+          </Link>
         </div>
       </div>
     </footer>
