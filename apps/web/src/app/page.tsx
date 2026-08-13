@@ -1,4 +1,5 @@
 import { locations, products } from "@coffee-daily/mocks";
+import Image from "next/image";
 import Link from "next/link";
 import { HeroCup } from "@/components/landing/HeroCup";
 import { LocationBar } from "@/components/layout/LocationBar";
@@ -56,7 +57,17 @@ export default function HomePage() {
                 href={`/menu/${product.slug}`}
                 className="w-64 shrink-0 snap-start rounded-lg bg-cd-paper-warm p-4 transition-colors duration-200 hover:bg-cd-line"
               >
-                <div className="mb-4 aspect-square rounded-lg bg-cd-line" />
+                <div className="relative mb-4 aspect-square overflow-hidden rounded-lg bg-cd-line">
+                  {product.images[0] ? (
+                    <Image
+                      src={product.images[0]}
+                      alt={product.name}
+                      fill
+                      sizes="256px"
+                      className="object-cover"
+                    />
+                  ) : null}
+                </div>
                 <p className="mb-2 text-display-m text-cd-orange">
                   {product.name}
                 </p>

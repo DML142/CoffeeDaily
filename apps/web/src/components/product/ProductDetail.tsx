@@ -11,6 +11,7 @@ import { Badge } from "@coffee-daily/ui/Badge";
 import { Button } from "@coffee-daily/ui/Button";
 import { useToast } from "@coffee-daily/ui/Toast";
 import { formatMoney } from "@coffee-daily/utils/money";
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { SizePicker } from "@/components/product/SizePicker";
@@ -107,7 +108,18 @@ export function ProductDetail({ product }: ProductDetailProps) {
   return (
     <section className="bg-cd-paper px-4 pb-16 sm:px-6 lg:px-10">
       <Reveal className="container grid grid-cols-1 gap-12 lg:grid-cols-2">
-        <div className="aspect-square max-h-[60vh] w-full bg-cd-line lg:aspect-auto lg:max-h-none" />
+        <div className="relative aspect-square max-h-[60vh] w-full overflow-hidden bg-cd-line lg:aspect-auto lg:max-h-none">
+          {product.images[0] ? (
+            <Image
+              src={product.images[0]}
+              alt={product.name}
+              fill
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              priority
+              className="object-cover"
+            />
+          ) : null}
+        </div>
 
         <div>
           {categoryName ? (
