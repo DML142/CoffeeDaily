@@ -1,7 +1,7 @@
 "use client";
 
 import { gsap } from "gsap";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   createContext,
   useCallback,
@@ -64,6 +64,8 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const shouldRevealRef = useRef(false);
   const router = useRouter();
   const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const routeKey = `${pathname}?${searchParams.toString()}`;
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   useEffect(() => {
@@ -83,7 +85,7 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
         ease: "power2.inOut",
       },
     );
-  }, [pathname]);
+  }, [routeKey]);
 
   const navigate = useCallback(
     (href: string) => {

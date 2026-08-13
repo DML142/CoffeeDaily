@@ -3,16 +3,18 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 import { mockMatchMedia } from "@/test-utils/mockMatchMedia";
 import { PageTransitionProvider, usePageTransition } from "./PageTransition";
 
-const { fromToMock, pushMock, usePathnameMock } = vi.hoisted(() => ({
-  fromToMock: vi.fn(
-    (_target: unknown, _from: unknown, to: { onComplete?: () => void }) => {
-      to.onComplete?.();
-      return {};
-    },
-  ),
-  pushMock: vi.fn(),
-  usePathnameMock: vi.fn(() => "/"),
-}));
+const { fromToMock, pushMock, usePathnameMock, useSearchParamsMock } =
+  vi.hoisted(() => ({
+    fromToMock: vi.fn(
+      (_target: unknown, _from: unknown, to: { onComplete?: () => void }) => {
+        to.onComplete?.();
+        return {};
+      },
+    ),
+    pushMock: vi.fn(),
+    usePathnameMock: vi.fn(() => "/"),
+    useSearchParamsMock: vi.fn(() => new URLSearchParams()),
+  }));
 
 vi.mock("gsap", () => ({
   gsap: { fromTo: fromToMock },
@@ -21,6 +23,7 @@ vi.mock("gsap", () => ({
 vi.mock("next/navigation", () => ({
   useRouter: () => ({ push: pushMock }),
   usePathname: () => usePathnameMock(),
+  useSearchParams: () => useSearchParamsMock(),
 }));
 
 const REDUCED_MOTION = "(prefers-reduced-motion: reduce)";
@@ -51,6 +54,7 @@ describe("PageTransitionProvider", () => {
     fromToMock.mockClear();
     pushMock.mockClear();
     usePathnameMock.mockReturnValue("/");
+    useSearchParamsMock.mockReturnValue(new URLSearchParams());
     window.history.replaceState(null, "", "/");
   });
 
@@ -104,6 +108,29 @@ describe("PageTransitionProvider", () => {
       Record<string, unknown>,
     ];
     expect(from.transformOrigin).toBe("100% 0%");
+    expect(to.rotate).toBe(12);
+    expect(to.scale).toBe(0);
+  });
+
+  it("plays the open animation when only the search params change, e.g. a category filter link", () => {
+    mockMatchMedia({ [REDUCED_MOTION]: false });
+    usePathnameMock.mockReturnValue("/menu");
+    const { rerender } = render(
+      <PageTransitionProvider>{null}</PageTransitionProvider>,
+    );
+
+    clickAnchor({ href: "/menu?category=coffee" });
+    fromToMock.mockClear();
+
+    useSearchParamsMock.mockReturnValue(new URLSearchParams("category=coffee"));
+    rerender(<PageTransitionProvider>{null}</PageTransitionProvider>);
+
+    expect(fromToMock).toHaveBeenCalledTimes(1);
+    const [, , to] = fromToMock.mock.calls[0] as unknown as [
+      unknown,
+      Record<string, unknown>,
+      Record<string, unknown>,
+    ];
     expect(to.rotate).toBe(12);
     expect(to.scale).toBe(0);
   });
