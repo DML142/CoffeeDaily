@@ -109,6 +109,17 @@ describe("MenuPage", () => {
     expect(screen.queryByText("Iced Cold Brew")).not.toBeInTheDocument();
   });
 
+  it("re-reads the category from the URL when it changes without remounting, e.g. a link click from within /menu", () => {
+    const { rerender } = render(<MenuPage />);
+    expect(screen.getByText("Iced Cold Brew")).toBeInTheDocument();
+
+    searchParams = new URLSearchParams("category=beans");
+    rerender(<MenuPage />);
+
+    expect(screen.getByText("House Blend, 12oz")).toBeInTheDocument();
+    expect(screen.queryByText("Iced Cold Brew")).not.toBeInTheDocument();
+  });
+
   it("blurs the grid out before swapping to the new filtered set, unless reduced motion is on", async () => {
     mockMatchMedia({ [REDUCED_MOTION]: false });
     render(<MenuPage />);
