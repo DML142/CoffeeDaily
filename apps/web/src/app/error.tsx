@@ -23,7 +23,10 @@ export default function Error({
       </h1>
       <div className="flex gap-4">
         <Button onClick={reset}>Try again</Button>
-        <Link href="/" className="border border-cd-ink px-4 py-2 text-body-s">
+        <Link
+          href="/"
+          className="border border-cd-ink px-4 py-2 text-body-s transition-colors duration-200 hover:bg-cd-ink hover:text-cd-cream"
+        >
           Back home
         </Link>
       </div>

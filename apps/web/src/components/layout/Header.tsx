@@ -68,7 +68,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-self-end gap-3">
+        <div className="col-start-3 flex items-center justify-self-end gap-3">
           <Link
             href="/locations"
             className="group relative isolate hidden border border-cd-ink px-4 py-2 text-body-s text-cd-ink sm:inline-flex sm:items-center"
@@ -96,7 +96,7 @@ export function Header() {
           <button
             type="button"
             onClick={() => setMobileNavOpen(true)}
-            className="text-body-s md:hidden"
+            className="text-body-s transition-colors duration-200 hover:text-cd-orange md:hidden"
             aria-label="Open menu"
           >
             Menu

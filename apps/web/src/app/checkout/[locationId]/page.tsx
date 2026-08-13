@@ -25,7 +25,10 @@ export default async function CheckoutPage({ params }: CheckoutPageParams) {
         <div className="container">
           <p className="mb-6 text-label text-cd-ink-mute">[ Checkout ]</p>
           <h1 className="mb-4 text-display-xl text-cd-ink">{location.name}</h1>
-          <Link href="/cart" className="text-body-s underline">
+          <Link
+            href="/cart"
+            className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
+          >
             Back to cart
           </Link>
         </div>

@@ -1,4 +1,5 @@
 import { locations, products } from "@coffee-daily/mocks";
+import Image from "next/image";
 import Link from "next/link";
 import { HeroCup } from "@/components/landing/HeroCup";
 import { LocationBar } from "@/components/layout/LocationBar";
@@ -54,9 +55,19 @@ export default function HomePage() {
               <Link
                 key={product.id}
                 href={`/menu/${product.slug}`}
-                className="w-64 shrink-0 snap-start rounded-lg bg-cd-paper-warm p-4"
+                className="w-64 shrink-0 snap-start rounded-lg bg-cd-paper-warm p-4 transition-colors duration-200 hover:bg-cd-line"
               >
-                <div className="mb-4 aspect-square rounded-lg bg-cd-line" />
+                <div className="relative mb-4 aspect-square overflow-hidden rounded-lg bg-cd-line">
+                  {product.images[0] ? (
+                    <Image
+                      src={product.images[0]}
+                      alt={product.name}
+                      fill
+                      sizes="256px"
+                      className="object-cover"
+                    />
+                  ) : null}
+                </div>
                 <p className="mb-2 text-display-m text-cd-orange">
                   {product.name}
                 </p>
@@ -75,7 +86,7 @@ export default function HomePage() {
             <Link
               key={tile.slug}
               href={`/menu?category=${tile.slug}`}
-              className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-cd-ink"
+              className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-cd-ink transition-colors duration-200 hover:bg-cd-ink-2"
             >
               <span className="absolute bottom-4 left-4 text-display-m text-cd-cream">
                 {tile.label}
@@ -100,7 +111,10 @@ export default function HomePage() {
               Every batch is roasted in small runs and pulled the same week
               it&apos;s poured. No shortcuts, no syrups pretending to be flavor.
             </p>
-            <Link href="/about" className="text-body-s underline">
+            <Link
+              href="/about"
+              className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
+            >
               Read more about us
             </Link>
           </div>
@@ -111,7 +125,10 @@ export default function HomePage() {
         <div className="container">
           <div className="mb-8 flex items-center justify-between">
             <p className="text-label text-cd-ink-mute">[ Our Locations ]</p>
-            <Link href="/locations" className="text-body-s underline">
+            <Link
+              href="/locations"
+              className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
+            >
               See all locations
             </Link>
           </div>
@@ -120,7 +137,7 @@ export default function HomePage() {
               <Link
                 key={location.id}
                 href="/locations"
-                className="rounded-lg bg-cd-paper-warm p-6"
+                className="rounded-lg bg-cd-paper-warm p-6 transition-colors duration-200 hover:bg-cd-line"
               >
                 <p className="mb-2 text-display-m">{location.name}</p>
                 <p className="text-body-s text-cd-ink-mute">
@@ -152,7 +169,7 @@ export default function HomePage() {
             </label>
             <button
               type="submit"
-              className="shrink-0 rounded-full bg-cd-orange px-6 py-3 text-body-s text-cd-cream"
+              className="shrink-0 rounded-full bg-cd-orange px-6 py-3 text-body-s text-cd-cream transition-colors duration-200 hover:bg-cd-orange-deep"
             >
               Subscribe
             </button>

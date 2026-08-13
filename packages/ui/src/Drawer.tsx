@@ -22,11 +22,19 @@ export function Drawer({
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-cd-ink/60" />
+        <Dialog.Overlay
+          className={cn(
+            "fixed inset-0 z-50 bg-cd-ink/60",
+            "motion-safe:data-[state=open]:animate-[drawer-overlay-fade-in_400ms_ease-in-out]",
+            "motion-safe:data-[state=closed]:animate-[drawer-overlay-fade-out_400ms_ease-in-out]",
+          )}
+        />
         <Dialog.Content
           className={cn(
             "fixed top-0 z-50 h-full w-full max-w-xs bg-cd-paper-warm p-6 focus:outline-none",
-            side === "right" ? "right-0" : "left-0",
+            side === "right"
+              ? "right-0 motion-safe:data-[state=open]:animate-[drawer-slide-in-right_400ms_ease-in-out] motion-safe:data-[state=closed]:animate-[drawer-slide-out-right_400ms_ease-in-out]"
+              : "left-0 motion-safe:data-[state=open]:animate-[drawer-slide-in-left_400ms_ease-in-out] motion-safe:data-[state=closed]:animate-[drawer-slide-out-left_400ms_ease-in-out]",
             className,
           )}
         >

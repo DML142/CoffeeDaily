@@ -48,7 +48,7 @@ export function CartLineRow({
             type="button"
             aria-label="Decrease quantity"
             onClick={onDecrement}
-            className="h-8 w-8 border border-cd-line text-body-s"
+            className="h-8 w-8 border border-cd-line text-body-s transition-colors duration-200 hover:bg-cd-paper"
           >
             −
           </button>
@@ -57,7 +57,7 @@ export function CartLineRow({
             type="button"
             aria-label="Increase quantity"
             onClick={onIncrement}
-            className="h-8 w-8 border border-cd-line text-body-s"
+            className="h-8 w-8 border border-cd-line text-body-s transition-colors duration-200 hover:bg-cd-paper"
           >
             +
           </button>

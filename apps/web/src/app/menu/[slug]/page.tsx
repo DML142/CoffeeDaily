@@ -32,7 +32,10 @@ export default async function ProductPage({ params }: ProductPageParams) {
     <>
       <section className="bg-cd-paper px-4 py-10 sm:px-6 lg:px-10">
         <div className="container">
-          <Link href="/menu" className="text-body-s underline">
+          <Link
+            href="/menu"
+            className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
+          >
             Back to menu
           </Link>
         </div>

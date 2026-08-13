@@ -28,7 +28,10 @@ export default function CartPage() {
           {locationIds.length === 0 ? (
             <p className="text-body text-cd-ink-mute">
               Your cart is empty.{" "}
-              <Link href="/menu" className="underline">
+              <Link
+                href="/menu"
+                className="underline transition-colors duration-200 hover:text-cd-orange"
+              >
                 Browse the menu
               </Link>
               .

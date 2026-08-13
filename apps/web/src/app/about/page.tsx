@@ -112,7 +112,7 @@ export default function AboutPage() {
           </p>
           <Link
             href="/locations"
-            className="shrink-0 border border-cd-ink px-6 py-3 text-body-s"
+            className="shrink-0 border border-cd-ink px-6 py-3 text-body-s transition-colors duration-200 hover:bg-cd-ink hover:text-cd-cream"
           >
             See all locations
           </Link>

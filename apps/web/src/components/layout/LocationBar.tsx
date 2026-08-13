@@ -18,7 +18,10 @@ export function LocationBar() {
         <p className="text-body-s text-cd-ink-mute">
           {selectedLocation ? selectedLocation.name : "No location selected"}
         </p>
-        <Link href="/locations" className="text-body-s underline">
+        <Link
+          href="/locations"
+          className="text-body-s underline transition-colors duration-200 hover:text-cd-orange"
+        >
           {selectedLocation ? "Change location" : "Choose a location"}
         </Link>
       </div>
