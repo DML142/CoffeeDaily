@@ -58,8 +58,10 @@ describe("Header", () => {
     const overlay = cart.querySelector('[aria-hidden="true"]');
 
     expect(overlay).not.toBeNull();
-    expect(overlay?.className).toContain("-translate-x-full");
-    expect(overlay?.className).toContain("group-hover:translate-x-0");
+    expect(overlay?.className).toContain("[clip-path:inset(0_100%_0_0)]");
+    expect(overlay?.className).toContain(
+      "group-hover:[clip-path:inset(0_0_0_0)]",
+    );
     expect(overlay?.className).toContain("motion-reduce:transition-none");
     expect(overlay?.className).toContain("bg-cd-cream");
     expect(overlay?.className).toContain("text-cd-orange");
