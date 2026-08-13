@@ -81,8 +81,7 @@ function MenuPageContent() {
       priceRange: price ?? null,
       dietaryTags: dietary ? (dietary.split(",") as DietaryTag[]) : [],
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [searchParams]);
 
   function syncUrl() {
     const state = useFilterStore.getState();
