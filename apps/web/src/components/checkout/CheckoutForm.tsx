@@ -8,6 +8,7 @@ import { Select } from "@coffee-daily/ui/Select";
 import { Textarea } from "@coffee-daily/ui/Textarea";
 import { formatMoney } from "@coffee-daily/utils/money";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -149,7 +150,17 @@ export function CheckoutForm({ location }: CheckoutFormProps) {
                 );
                 return (
                   <div key={line.id} className="flex items-center gap-4 py-3">
-                    <div className="h-16 w-16 shrink-0 bg-cd-line" />
+                    <div className="relative h-16 w-16 shrink-0 overflow-hidden bg-cd-line">
+                      {product?.images[0] ? (
+                        <Image
+                          src={product.images[0]}
+                          alt={product.name}
+                          fill
+                          sizes="64px"
+                          className="object-cover"
+                        />
+                      ) : null}
+                    </div>
                     <div className="flex-1">
                       <p className="mb-1 text-body">
                         {product?.name ?? "Item"}

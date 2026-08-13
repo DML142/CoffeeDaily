@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/motion/Reveal";
 
@@ -11,24 +12,28 @@ const STORY_SECTIONS = [
     label: "[ Since the start ]",
     title: "A shop before it was a chain",
     body: "Coffee Daily opened as one counter in Fulton Market, roasting whatever the week's batch allowed. The counter grew into six spots around Chicago, run by the same crew that pulled the first shots.",
+    image: "/img/a-shop-before-it-was-a-chain.jpg",
     imageFirst: true,
   },
   {
     label: "[ Sourcing ]",
     title: "Direct trade, named farms",
     body: "We buy from growers we've met, not brokers we haven't. Every bag on the shelf lists the farm, the altitude, and the harvest date.",
+    image: "/img/direct-trade-named-farms.jpeg",
     imageFirst: false,
   },
   {
     label: "[ Roasting ]",
     title: "Small batches, every week",
     body: "Beans go on the roaster within days of arriving and into a cup within a week of that. Nothing sits in a warehouse waiting for a shelf slot.",
+    image: "/img/small-batches-every-week.jpg",
     imageFirst: true,
   },
   {
     label: "[ The crew ]",
     title: "Baristas first, everything else second",
     body: "Every roaster on staff started behind the bar. Cupping notes get argued over at the counter, not decided in a boardroom.",
+    image: "/img/baristas-first-everything-else-second.webp",
     imageFirst: false,
   },
 ];
@@ -72,8 +77,16 @@ export default function AboutPage() {
         >
           <Reveal className="container grid w-full flex-1 grid-cols-1 grid-rows-[1fr] gap-12 md:grid-cols-2">
             <div
-              className={`rounded-lg bg-cd-paper-warm ${section.imageFirst ? "" : "order-2 md:order-1"}`}
-            />
+              className={`relative overflow-hidden rounded-lg bg-cd-paper-warm ${section.imageFirst ? "" : "order-2 md:order-1"}`}
+            >
+              <Image
+                src={section.image}
+                alt={section.title}
+                fill
+                sizes="(min-width: 768px) 50vw, 100vw"
+                className="object-cover"
+              />
+            </div>
             <div
               className={`flex flex-col justify-center ${section.imageFirst ? "" : "order-1 md:order-2"}`}
             >
