@@ -68,7 +68,7 @@ export function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center justify-self-end gap-3">
+        <div className="col-start-3 flex items-center justify-self-end gap-3">
           <Link
             href="/locations"
             className="group relative isolate hidden border border-cd-ink px-4 py-2 text-body-s text-cd-ink sm:inline-flex sm:items-center"

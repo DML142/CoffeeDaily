@@ -51,7 +51,7 @@ export function ProductCard({
           {tags.map((tag) => (
             <span
               key={tag}
-              className="rounded-full border border-cd-line px-3 py-1 text-label"
+              className="rounded-full border border-cd-line bg-cd-paper-warm px-3 py-1 text-label"
             >
               {tag}
             </span>
@@ -86,7 +86,7 @@ export function ProductCard({
         {tags.map((tag) => (
           <span
             key={tag}
-            className="rounded-full border border-cd-line px-3 py-1 text-label"
+            className="rounded-full border border-cd-line bg-cd-paper-warm px-3 py-1 text-label"
           >
             {tag}
           </span>
