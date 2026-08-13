@@ -127,7 +127,7 @@ export function CupModel({
 
   return (
     <group ref={slideRef} position-x={-viewport.width}>
-      <group rotation-x={TILT} scale={SIZE_SCALES[size]}>
+      <group rotation-z={TILT} scale={SIZE_SCALES[size]}>
         <group ref={spinRef}>
           <primitive object={object} />
         </group>
