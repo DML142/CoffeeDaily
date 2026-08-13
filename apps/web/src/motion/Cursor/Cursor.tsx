@@ -1,6 +1,7 @@
 "use client";
 
 import { gsap } from "gsap";
+import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
 
@@ -24,6 +25,13 @@ export function Cursor() {
   const pointerFine = useMediaQuery("(pointer: fine)");
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
   const enabled = pointerFine && !reducedMotion;
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setActive((current) => (current ? false : current));
+    setLabel((current) => (current !== null ? null : current));
+  }, [pathname]);
 
   useEffect(() => {
     if (!enabled) return;
@@ -35,10 +43,21 @@ export function Cursor() {
     const dotY = gsap.quickTo(dot, "y", { duration: 0.3, ease: "power3" });
 
     let hasPositioned = false;
+    const lastPointerPos = { x: 0, y: 0 };
+
+    function updateFromPoint(x: number, y: number) {
+      const target = document.elementFromPoint(x, y);
+      const resolved =
+        target instanceof HTMLElement ? resolveCursorTarget(target) : null;
+      setActive(Boolean(resolved));
+      setLabel(resolved ? resolved.label : null);
+    }
 
     function handlePointerMove(event: PointerEvent) {
       dotX(event.clientX);
       dotY(event.clientY);
+      lastPointerPos.x = event.clientX;
+      lastPointerPos.y = event.clientY;
       if (!hasPositioned) {
         hasPositioned = true;
         setConfirmed(true);
@@ -64,14 +83,21 @@ export function Cursor() {
       }
     }
 
+    function handleScroll() {
+      if (!hasPositioned) return;
+      updateFromPoint(lastPointerPos.x, lastPointerPos.y);
+    }
+
     document.addEventListener("pointermove", handlePointerMove);
     document.addEventListener("pointerover", handlePointerOver);
     document.addEventListener("pointerout", handlePointerOut);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
     return () => {
       document.removeEventListener("pointermove", handlePointerMove);
       document.removeEventListener("pointerover", handlePointerOver);
       document.removeEventListener("pointerout", handlePointerOut);
+      window.removeEventListener("scroll", handleScroll);
       setConfirmed(false);
       setActive(false);
       setLabel(null);
