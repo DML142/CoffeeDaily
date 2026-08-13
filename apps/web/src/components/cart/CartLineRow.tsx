@@ -1,6 +1,7 @@
 import { products } from "@coffee-daily/mocks";
 import type { CartLine, Size, Vessel } from "@coffee-daily/types";
 import { formatMoney } from "@coffee-daily/utils/money";
+import Image from "next/image";
 
 const VESSEL_LABELS: Record<Vessel, string> = {
   glass: "Glass",
@@ -34,7 +35,17 @@ export function CartLineRow({
   return (
     <div className="flex flex-wrap items-center gap-4 py-4">
       <div className="flex min-w-[200px] flex-1 items-center gap-4">
-        <div className="h-20 w-20 shrink-0 bg-cd-line" />
+        <div className="relative h-20 w-20 shrink-0 overflow-hidden bg-cd-line">
+          {product?.images[0] ? (
+            <Image
+              src={product.images[0]}
+              alt={product.name}
+              fill
+              sizes="80px"
+              className="object-cover"
+            />
+          ) : null}
+        </div>
         <div className="flex-1">
           <p className="mb-1 text-body">{product?.name ?? "Item"}</p>
           <p className="text-body-s text-cd-ink-mute">

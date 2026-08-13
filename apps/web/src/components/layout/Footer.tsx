@@ -7,7 +7,12 @@ const SITEMAP_LINKS = [
   { href: "/about", label: "About" },
 ];
 
-const PRODUCT_LABELS = ["Coffee", "Food", "Beans", "Merch"];
+const PRODUCT_LINKS = [
+  { href: "/menu?category=coffee", label: "Coffee" },
+  { href: "/menu?category=food", label: "Food" },
+  { href: "/menu?category=beans", label: "Beans" },
+  { href: "/menu?category=merch", label: "Merch" },
+];
 
 const SOCIAL_LINKS = [
   { href: "#", label: "Instagram" },
@@ -62,8 +67,15 @@ export function Footer({ ref }: FooterProps) {
           <div>
             <p className="mb-4 text-label text-cd-ink-mute">Products</p>
             <ul className="flex flex-col gap-2 text-body-s">
-              {PRODUCT_LABELS.map((label) => (
-                <li key={label}>{label}</li>
+              {PRODUCT_LINKS.map((link) => (
+                <li key={link.href}>
+                  <Link
+                    href={link.href}
+                    className="transition-colors duration-200 hover:text-cd-orange"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
               ))}
             </ul>
           </div>
