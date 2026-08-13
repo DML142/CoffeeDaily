@@ -13,10 +13,10 @@ const FEATURED_SLUGS = [
 ];
 
 const CATEGORY_TILES = [
-  { slug: "coffee", label: "Coffee" },
-  { slug: "food", label: "Food" },
-  { slug: "beans", label: "Beans" },
-  { slug: "merch", label: "Merch" },
+  { slug: "coffee", label: "Coffee", image: "/img/menu/iced-cold-brew.jpeg" },
+  { slug: "food", label: "Food", image: "/img/menu/avocado-toast.jpg" },
+  { slug: "beans", label: "Beans", image: "/img/beans.webp" },
+  { slug: "merch", label: "Merch", image: "/img/menu/ceramic-mug.webp" },
 ];
 
 const featuredProducts = FEATURED_SLUGS.map((slug) =>
@@ -88,6 +88,13 @@ export default function HomePage() {
               href={`/menu?category=${tile.slug}`}
               className="group relative aspect-[4/5] overflow-hidden rounded-lg bg-cd-ink transition-colors duration-200 hover:bg-cd-ink-2"
             >
+              <Image
+                src={tile.image}
+                alt={tile.label}
+                fill
+                sizes="(min-width: 1024px) 25vw, 50vw"
+                className="object-cover opacity-80 transition-transform duration-300 group-hover:scale-105 group-hover:opacity-100"
+              />
               <span className="absolute bottom-4 left-4 text-display-m text-cd-cream">
                 {tile.label}
               </span>
@@ -101,7 +108,15 @@ export default function HomePage() {
 
       <section className="bg-cd-paper px-4 py-16 sm:px-6 lg:px-10">
         <Reveal className="container grid grid-cols-1 items-center gap-12 md:grid-cols-2">
-          <div className="aspect-[4/5] rounded-lg bg-cd-paper-warm" />
+          <div className="relative aspect-[4/5] overflow-hidden rounded-lg bg-cd-paper-warm">
+            <Image
+              src="/img/roasting-coffee-hero.webp"
+              alt="Roasting coffee"
+              fill
+              sizes="(min-width: 768px) 50vw, 100vw"
+              className="object-cover"
+            />
+          </div>
           <div>
             <p className="mb-4 text-label text-cd-ink-mute">[ Our Story ]</p>
             <p className="mb-6 text-display-l">
