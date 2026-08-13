@@ -4,10 +4,12 @@ import { gsap } from "gsap";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   createContext,
+  Suspense,
   useCallback,
   useContext,
   useEffect,
   useRef,
+  useState,
 } from "react";
 import type { ReactNode } from "react";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -58,14 +60,29 @@ function resolveInternalHref(anchor: HTMLAnchorElement): string | null {
   return url.pathname + url.search + url.hash;
 }
 
+function SearchParamsWatcher({
+  onChange,
+}: {
+  onChange: (search: string) => void;
+}) {
+  const searchParams = useSearchParams();
+  const search = searchParams.toString();
+
+  useEffect(() => {
+    onChange(search);
+  }, [search, onChange]);
+
+  return null;
+}
+
 export function PageTransitionProvider({ children }: { children: ReactNode }) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const pendingHrefRef = useRef<string | null>(null);
   const shouldRevealRef = useRef(false);
   const router = useRouter();
   const pathname = usePathname();
-  const searchParams = useSearchParams();
-  const routeKey = `${pathname}?${searchParams.toString()}`;
+  const [search, setSearch] = useState("");
+  const routeKey = `${pathname}?${search}`;
   const reducedMotion = useMediaQuery("(prefers-reduced-motion: reduce)");
 
   useEffect(() => {
@@ -151,6 +168,9 @@ export function PageTransitionProvider({ children }: { children: ReactNode }) {
 
   return (
     <PageTransitionContext.Provider value={{ navigate }}>
+      <Suspense fallback={null}>
+        <SearchParamsWatcher onChange={setSearch} />
+      </Suspense>
       <div
         ref={overlayRef}
         aria-hidden="true"
