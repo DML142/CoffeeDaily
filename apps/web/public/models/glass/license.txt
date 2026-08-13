@@ -1,0 +1,11 @@
+Model Information:
+* title:	Simple Realistic Glass 3D Model
+* source:	https://sketchfab.com/3d-models/simple-realistic-glass-3d-model-feabf8e6b0ad4bcdbbe88009f34a2363
+* author:	LukeModels75 (https://sketchfab.com/lucasgamerbdf)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Simple Realistic Glass 3D Model" (https://sketchfab.com/3d-models/simple-realistic-glass-3d-model-feabf8e6b0ad4bcdbbe88009f34a2363) by LukeModels75 (https://sketchfab.com/lucasgamerbdf) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
