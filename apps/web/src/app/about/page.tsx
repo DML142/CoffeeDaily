@@ -77,7 +77,7 @@ export default function AboutPage() {
         >
           <Reveal className="container grid w-full flex-1 grid-cols-1 grid-rows-[1fr] gap-12 md:grid-cols-2">
             <div
-              className={`relative overflow-hidden rounded-lg bg-cd-paper-warm ${section.imageFirst ? "" : "order-2 md:order-1"}`}
+              className={`relative overflow-hidden rounded-lg bg-cd-paper-warm ${section.imageFirst ? "" : "md:order-1"}`}
             >
               <Image
                 src={section.image}
@@ -88,7 +88,7 @@ export default function AboutPage() {
               />
             </div>
             <div
-              className={`flex flex-col justify-center ${section.imageFirst ? "" : "order-1 md:order-2"}`}
+              className={`flex flex-col justify-center ${section.imageFirst ? "" : "md:order-2"}`}
             >
               <p className="mb-4 text-label text-cd-ink-mute">
                 {section.label}
